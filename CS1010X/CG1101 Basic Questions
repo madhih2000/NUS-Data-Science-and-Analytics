@@ -1,0 +1,92 @@
+Question 1: Body Mass Index
+
+The body mass index (BMI), or Quetelet index, is a statistical measure of body weight based on a person's weight and height. Though it does not actually measure the percentage of body fat, it is used to estimate a healthy body weight based on a person's height. (Source: Wikipedia)
+
+A person's BMI is given by the following formula:
+
+
+Implement a function as follows:
+def BMI(mass, height)
+
+The mass in unit "kg", and the height in unit "m". This should return the BMI value.
+
+All negative values and invalid values should return None.
+
+Ans:
+
+def BMI(mass, height):
+    if mass > 0 and height > 0:
+        return mass / (height ** 2)
+    else:
+        return None
+        
+ Question 2: Investment
+
+If you invest a principal amount of P dollars at R percent interest rate compounded annually, in N years, your investment will grow to
+
+dollars.
+
+Implement a function:
+def investment(P, R, N)
+This accepts positive integers P, R and N and computes the amount of money earned after N years, presented in two decimal places. You may assume that the interest rate is always smaller than 100.
+
+You may use the round(number, n) function to round a number to a n decimal places.
+
+Ans:
+
+
+def investment(P, R, N):
+    interest = P*(1-(0.01*R)**(N + 1))/(1-(0.01*R))
+    return round(interest, 2)
+Question 3: IP Address Format
+
+You are to read an IP address which is a 32 characters long sequence of bit streams (i.e., '1's and '0's). ) Your task is to convert an IP address to a dotted decimal format. A dotted decimal format for an IP address is formed by grouping 8 bits at a time and converting the binary representation into decimal representation.
+
+For example, IP address 00000011 10000000 11111111 11111111 will be converted into dotted decimal format as: 3.128.255.255. This is because the 1st 8 bits 00000011 will be converted to 3, the 2nd 8 bits 10000000 will be converted to 128, the 3rd 8 bits 11111111 will be converted to 255 and the last 8 bits 11111111 will be converted to 255.
+
+To convert binary numbers to decimal numbers, remember that both are positional numerical systems, whereby the first 8 positions of the binary systems are:
+
+Write a function ip_format that accepts an IP address in binary format and converts it into its dotted decimal format.
+
+Ans:
+
+def ip_format(ip_address):
+    return '.'.join(str(int(ip_address[i:i+8], 2)) for i in range(0, 32, 8))
+
+Question 4: Root of Linear Equation
+
+In algebra, we have studied that second degree linear equations always have two roots.
+
+Implement a function:
+def get_bigger_root(a, b, c):
+that reads three coefficients a, b, c representing equation ax^2 + bx + c = 0. This function returns the bigger one between its two roots (assuming that both roots are real numbers).
+
+Correct your output to two decimal places.
+
+You may use the round(number, n) function to round a number to a n decimal places. 
+
+Hint: ab can be determined by python using the code a ** b
+
+Ans:
+
+from math import sqrt
+def get_bigger_root(a, b, c):
+    d = (b**2) - (4*a*c)
+    root1 = (-b + sqrt(d))/(2*a)
+    root2 = (-b - sqrt(d))/(2*a)
+    result = max(root1, root2)
+    return round(result, 2)
+
+Question 5: Digit Sum
+
+Implement a function is_sum_odd that takes a non-negative integer number as parameter and returns True if the sum of individual digits is odd, False otherwise.
+
+Ans:
+
+def is_sum_odd(number):
+    sum_of_digits = 0
+    for digit in str(number):
+        digit = int(digit)
+        sum_of_digits += digit
+    return(sum_of_digits % 2 != 0)
+    
