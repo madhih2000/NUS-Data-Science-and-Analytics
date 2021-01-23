@@ -1,0 +1,84 @@
+Question 1: Primitive types are not callable
+
+What is wrong with the portion of code below?
+
+def area(x, y):
+    return 1/2 * x * y
+
+temp1 = area(2, 3)
+area = 3.0
+temp2 = area(4, 5)
+Remove the line that causes the problem.
+
+Ans:
+
+def area(x, y):
+    return 1/2 * x * y
+temp1, temp2 = 0, 0  # do not modify this line
+temp1 = area(2,3)
+# area = 3.0
+temp2 = area(4,5)
+# Please find the lines of code that generate an error/errors above
+# and only uncomment the lines that are error-free
+
+
+Question 2: Integer division Vs. Normal division
+
+We want to implement a function to calculate the remainder of a larger integer divided by a smaller integer. The function remainder(larger, smaller) takes in two integers and returns the remainder of larger / smaller. Minh Tu wants to write it this way:
+Find the largest integer k such that larger = k * smaller + r.
+Return larger - k * smaller.
+What's wrong with the implementation of his idea? Fix the code so that it passes all test cases.
+
+You may assume that both larger and smaller are positive integers and larger is always larger than smaller.
+
+Ans:
+
+def remainder(larger, smaller):
+    k = larger // smaller
+    return larger - k * smaller
+    
+Question 3: Uninitialized variables
+
+Xiangxin wrote a function
+
+def sums(n):
+    i = 0
+    while i <= n:
+        result = result + i
+        i = i + 1
+    return result
+    
+sums(5)
+When she ran the code she got the following error message:
+Traceback (most recent call last):
+File "/Users/xiangxinsun/Documents/CS1010S/debugging.py", line 8, in 
+sums(5)
+File "/Users/xiangxinsun/Documents/CS1010S/debugging.py", line 4, in sums
+result = result + i
+UnboundLocalError: local variable 'result' referenced before assignment
+Interpret the error message above, find the source of error and fix the code so that it generates correct input.
+
+Note that if you execute this code right away, the error mesage given by Coursemology can be slightly different.
+
+Ans:
+
+
+def sums(n):
+    i = 0
+    result = 0
+    while i <= n:
+        result = result + i
+        i = i + 1
+    return result
+# Please add, modify or delete any lines of code above that have an error/errors
+
+
+Question 4: Order of arithmetic operations
+
+Suppose we want to write a function average(x1, x2) that calculates the average value of two numbers x1 and x2. What's wrong with the code below? Fix it so that it generates correct output.
+
+
+Ans:
+
+def average(x1, x2):
+    return (x1 + x2) / 2
