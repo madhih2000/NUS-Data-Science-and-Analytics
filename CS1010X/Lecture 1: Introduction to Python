@@ -1,0 +1,128 @@
+Question 1
+
+
+one = 2
+two = 3
+three = 1
+
+ans = one * (three - two)
+
+What is the value of ans?
+Ans: -4
+
+Question 2
+
+After the following statements, what are the values of x and y?
+
+x = 15
+y = x
+x = 22
+
+Ans: x is 22 andy is 15
+
+Question 3
+
+What is printed by the following line of code?
+
+print(18 / 4)
+
+Ans: 4.5
+
+Question 4
+
+What is the value of the following expression:
+
+2 ** 3 * 3
+
+Ans: 24
+
+Question 5
+
+Which is the most accurate way to determine the type of a variable?
+
+Ans: Use the type() function
+
+Question 6
+
+What is the data type of "this is what kind of data"?
+
+Ans: string
+
+Question 7
+
+Which of the following are legal Python names?
+
+Hint: There are more than 1 correct answer. 
+
+Ans: 
+
+haPpyDay
+Happy_day
+happyDay
+_HAPPY_DAY
+
+Question 8
+
+Which of the following results in a SyntaxError?
+
+Ans:
+
+'python\'
+
+Question 9
+
+In Python, the start index, stop index and step size of slices can each take on negative values. s[-1] refers to the last element of s, s[-2] the second last and so on. Negative steps sizes indicate that 'steps' are taken in the direction of decreasing indices when selecting elements to be included in the slice.
+
+For example, 'banana'[-1] will return 'a' and 'through'[::-2] takes every alternate character of the string 'through' starting from the last character towards the first, resulting in 'hurt'. [Open the Python shell in IDLE and experiment for yourself. ]
+
+s = 'banananananananab'
+
+Which of the following returns 'banana'?
+
+There may be multiple answers for this question. Do note that you will get the question wrong if you do not select ALL the correct options. 
+
+You may get some hints on individual options, but not all questions have these as well. You can run the statements on IDLE to check if they return what you expected, and ask on the forum if they don't :)
+
+Ans:
+
+s[:6]
+s[::3]
+s[-1:10:-1]
+s[:10:-1]
+s[-6:][::-1]
+s[0:2] + (s[-2] + s[-2])[::-1]*2
+s[:-11]
+
+Question 10
+
+s = 'cheesecake'
+
+What does the slice s[1:6] produce?
+
+Ans: heese
+
+Question 11
+
+What is the output of the following piece of code?
+
+
+if not False and not True:
+    if '123' == 123:
+        print('1')
+    elif 2 ** 3 == 3 ** 2:
+        print('2')
+else:
+    if (not True or not False) and (False and True):
+        print('3')
+    elif False or True:
+        print('4')
+
+Ans: 4
+
+Question 12
+
+Which of the following evaluates to True?
+
+'two' > 'seven billion'
+'5' != 5
+'here' == 'there'[1:]
