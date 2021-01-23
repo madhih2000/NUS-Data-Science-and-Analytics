@@ -10,6 +10,7 @@ from runes import *
 ##########
 # Task 1 #
 ##########
+
 def draw_column(pic, n):
     return stackn(n-2, pic)
 def draw_row(pic, n):
@@ -28,3 +29,6 @@ def egyptian(pic, n):
     stack_middle_on_bottom = stack_frac((n-2)/(n-1), middle, bottom)
     stack_top_on_middle_and_bottom = stack_frac(1/n, top, stack_middle_on_bottom)
     return stack_top_on_middle_and_bottom
+
+# Test
+show(egyptian(make_cross(rcross_bb), 5))
