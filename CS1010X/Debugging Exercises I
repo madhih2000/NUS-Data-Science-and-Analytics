@@ -1,0 +1,76 @@
+Question 1: Swapping Frenzy
+
+Yang Shun wants to swap the values of two variables. Given two variables a = 1 and b = 2, He implemented the following method:
+
+a = b
+b = a
+
+However, when he printed the two variables, he realized that the values were not swapped.
+
+print(a) # => 2
+print(b) # => 2 
+
+
+Please help him figure out what went wrong and fix it.
+
+Ans:
+
+
+# initialize
+a = 1
+b = 2
+# fix the bug in swapping logic, don't write a = 2, b = 1 please
+a, b = b, a
+
+Question 2: LEAP YEAR
+
+Yichen wrote a simple tool in Python to check whether a year is a leap year. A year is a leap year if it's divisible by 400 or divisible by 4 but not 100.
+
+Here's his code:
+
+def divisible(value, divider):
+    if value % divider == 0:
+        return true
+    else:
+        return false
+
+def test_leap_year(year):
+    if divisible(year, 400):
+        return 'Leap year!'
+    elif divisible(year, 4) and not divisible(year, 100):
+        return 'Leap year!'
+    else:
+        return 'Not a leap year!'
+
+However, he got an error when he ran it in IDLE. Can you tell the reason of the error and the line that causes the error based on the error message? Help him correct the code so that it passes all test cases below.
+
+Ans:
+
+
+# Modify the code below and make it work:
+def divisible(value, divider):
+    if value % divider == 0:
+        return True #using small case for boolean value is the error, must use True instead of true
+    else:
+        return False #using small case for boolean value is the error, must use False instead of false
+def test_leap_year(year):
+    if divisible(year, 400):
+        return 'Leap year!'
+    elif divisible(year, 4) and not divisible(year, 100):
+        return 'Leap year!'
+    else:
+        return 'Not a leap year!'
+        
+
+Question 3: STILL LEAP YEAR
+
+Yichen was very happy to see his code fixed. Jingchuan saw his code and he told him that it could be simplified. Since the == operator returns a boolean value, why not make it inline with boolean operators?
+They worked out another version as below. The logic is that a leap year is either a year that is divisible by 400 or a year that is not divisible by 100 if it's divisible by 4.
+This time they didn't get any error. But their code fails to produce the correct result occasionally. Again, be a hero and help them fix the code.
+
+# Modify the code below and make it work:
+def test_leap_year(year):
+    if (year % 400 == 0) or (year % 4 == 0 and not year % 100 == 0):
+        return 'Leap year!'
+    else:
+        return 'Not a leap year!'
