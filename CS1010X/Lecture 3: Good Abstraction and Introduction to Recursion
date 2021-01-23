@@ -1,0 +1,131 @@
+Question 1
+
+Jon the Juggler demonstrates a five ball cascade:
+
+ball1, ball2, ball3, ball4, ball5 = 'red', 'green', 'blue', 'red', 'blue'
+ball1, ball2, ball3, ball4, ball5 = ball4, ball2, ball5, ball1, ball3
+ball1, ball2, ball3, ball4, ball5 = ball5, ball1, ball2, ball3, ball4
+What is the color of ball5?
+
+Ans:
+
+red
+
+Question 2
+
+def bool_eval(x):
+    return True if x else False
+def str_eval(x):
+    return 'True' if x else 'False'
+Which of the following expressions return the boolean True when evaluated?
+
+Note: Although the string True and the boolean True are different, print('True') and print(True) produces output that is indistinguishable.
+
+Ans:
+
+bool_eval('True')
+str_eval(bool_eval(False)) == 'False'
+bool_eval(str_eval(str_eval(False)))
+
+Question 3
+
+cube_a = 2 ** 3
+cube_b = 2 ** 3
+cube_c = lambda x: x ** 3
+cube_d = lambda x: x ** 3
+cube_e = lambda x: cube_d
+cube_f = lambda cube_d: cube_d
+def cube_g(cube_a):
+    def cube_h(cube_a):
+        return cube_a ** 3
+    return cube_h
+Which of the following evaluates to True?
+
+Ans:
+
+cube_a == cube_b
+cube_c(2) == cube_d(2)
+cube_d == cube_e(2)
+cube_c(cube_a) == cube_a ** 3
+cube_g(3)(5) = 5 ** 3
+
+Question 4
+
+This question is a code-tracing practice. Please trace the code manually before verifying the answers using IDLE.
+
+def foo(n):
+    if n == 0:
+        return 0
+    else:
+        return 2 * n + foo(n - 1)
+What is the value of foo(5)?
+
+Ans:
+
+30
+
+Question 5
+
+This question is a code-tracing practice. Please trace the code manually before verifying the answers using IDLE.
+
+def bar(n):
+    if n < 3:
+        return n + 1
+    else:
+        return bar(n - 3) + bar(n - 2) + bar(n - 1) 
+What is the value of bar(4)?
+
+Ans:
+
+11
+
+Question 6
+
+This question is a code-tracing practice. Please trace the code manually before verifying the answers using IDLE.
+
+Yeti wants to climb a 40 cubit gravel knoll. Unfortunately, the gravel is loose and Yeti's footing slips occasionally.
+
+def hike(current_altitude):
+    if current_altitude > 40:
+        return 0
+    else:
+        return 1 + slide(current_altitude + 11)
+
+def slide(current_altitude):
+    if current_altitude > 40:
+        return 0
+    else:
+        return hike(current_altitude - 3)
+
+n = hike(0)
+
+Yeti takes n steps to climb from the bottom of the hill to the top. What is n?
+
+Ans:
+
+5
+
+Question 7
+
+Yeti wants to climb a 40 cubit gravel knoll. Unfortunately, the gravel is loose and Yeti's footing slips occasionally.
+
+
+def hike(current_altitude):
+    if current_altitude > 40:
+        return 0
+    else:
+        return 1 + slide(current_altitude + 11)
+
+def slide(current_altitude):
+    if current_altitude > 40:
+        return 0
+    else:
+        return hike(current_altitude - 3)
+
+Which of the following can be considered as magic numbers?
+
+Ans:
+
+40
+11
+3
