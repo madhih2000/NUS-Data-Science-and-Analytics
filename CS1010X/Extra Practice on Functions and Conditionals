@@ -1,0 +1,134 @@
+Question 1: Nth Digit
+
+Implement a function:
+def get_nth_digit(k, n):
+that accepts a 6 digit decimal number k (i.e., 100000 ≤ k ≤ 999999) and a single digit n (1 ≤ n ≤ 6), return the the nth digit in k.
+
+The first digit is the digit on the right-most of k.
+
+Check sample test cases for input and output format.
+
+Ans:
+
+def get_nth_digit(k, n):
+    number = str(k) #convert number to string
+    getting_number = int(number[-n])
+    return getting_number
+    
+Question 2: Bonus
+
+A financial institution provides professional services to banks and claims charges from the customers based on the number of man-days provided. Internally, it has set a scheme to motivate and reward staff to meet and exceed targeted billable utilization and revenues by paying a bonus for each day claimed from customers in excess of a threshold target. This quarterly scheme is calculated with a threshold target of 32 days per quarter, and the incentive payment for each billable day in excess of such threshold target is shown as follows:
+
+0 to 32 days Zero
+33 to 40 days SGD$325 per Billable Day
+41 to 48 days SGD$550 per Billable Day
+> 48 days SGD$600 per Billable Day
+
+Please note that incentive payment is calculated progressively. As an example, if an employee reached total billable days of 45 in a quarter, his/her incentive payment is computed as follows:
+
+32*0 + 8*325 + 5*550 = 5350
+
+Write a function bonus to read the billable days of an employee and output the bonus he/she has obtained in that quarter.
+
+Ans:
+
+
+def bonus(days):
+    if days <= 32:
+        incentive  = 0
+    elif days>32 and days <= 40:
+        incentive = 325 * (days-32)
+    elif days>40 and days <= 48:
+        incentive = 8*325 + 550 * (days-40)  
+    else:
+        incentive = 8*325 + 8*550 + 600 * (days-48)
+    return incentive
+    
+Question 3: Read Formatted Data
+
+Implement a function format_sum that reads in four integers as a string in the format int1+int2+int3+int4 and returns their sum.
+
+To aid you, the following function, get_int(string, separator, n) is defined for you. Use the function to get the nth integer in the string that is separated by separator. The following example illustrates how it works:
+
+fibo_string = "13=21=34=55=89"
+get_int(fibo_string, "=", 0) # 13
+get_int(fibo_string, "=", 3) # 55
+
+Ans:
+
+
+#get sum without using helper function as it is always four integers in string.
+def format_sum(int_string):
+    myIntegers = [int(x) for x in int_string.split('+')]    
+    print(myIntegers)
+    sum = 0
+    for i in myIntegers:
+        sum = sum + i
+    return sum
+    
+    
+# Predefined helper function. Do not edit.
+def get_int(string, separator, n):
+    return int(string.split(separator)[n])
+
+Question 4: Time Difference
+
+It is often useful to know the time difference between a starting time and an ending time. Suppose the starting time is 11:46:39 (11:46 hours and 39 seconds) and the ending time is 22:31:17 (22:31 hours and 17 seconds). The time difference is then 10:44:38 (10 hours 44 minutes and 38 seconds).
+
+Write a function time_difference that reads the starting time and ending time as input strings, calculates and then displays the time difference. Each input strings consists of three integers, denoting the hour, minute and second, separated by colons, e.g. "12:59:59". The first string is the start time while the second is the end time. You can assume that:
+
+1. Both starting time and ending time are in 24-hour format.
+2. The starting time and ending time are always in the same day.
+3. The ending time is always after the starting time.
+4. Print the time difference in the format as shown in the sample test cases.
+
+To aid you, the following functions are defined for you:
+time_to_seconds(time): A function that takes in a time in string, and returns the number of seconds that has elapsed since 00:00:00
+
+make_time_string(hours, mins, seconds): A function that takes in hours, mins, and seconds, and returns a string that represents the time.
+
+The sample input and output for these helper functions is listed under the Public test cases.
+
+Ans:
+
+def time_difference(time1, time2):
+    time_1_seconds = time_to_seconds(time1)
+    time_2_seconds = time_to_seconds(time2)
+    time_diff_seconds = time_2_seconds - time_1_seconds
+    minutes = time_diff_seconds // 60
+    hours = minutes // 60
+    return "%02d:%02d:%02d" % (hours, minutes % 60, time_diff_seconds % 60)
+ 
+    
+# Predefined helper functions. Do not edit them.
+def time_to_seconds(time):
+    x = list(map(int, time.split(":")))
+    return x[0] * 3600 + x[1]*60 + x[2]
+def make_time_string(hours, mins, seconds):
+    return "{:02d}:{:02d}:{:02d}".format(hours, mins, seconds)
+
+
+Question 5: Type of Triangle
+
+Write a function triangle that accepts three positive integers as inputs, denoting lengths of three sides of a triangle and returns the triangle's type:
+
+Not a triangle
+the length of any side is longer or equal to the sum of the other two sides.
+Equilateral
+all sides of a triangle have the same length.
+Isosceles
+two sides are equal in length and not equilateral.
+Scalene
+it is a triangle AND all sides are unequal (which also implies not isosceles and not equilateral).
+
+Ans:
+
+def triangle(side1, side2, side3):
+    if side1 == side2 and side1 == side3 and side2 == side3:
+        return "Equilateral"
+    elif (side1 >= (side2 + side3)) or (side2 >= (side1 + side3)):
+        return "Not a triangle"
+    elif side1 == side2 or side2 == side3 or side1 == side3:
+        return "Isosceles"
+    else:
+        return "Scalene"
