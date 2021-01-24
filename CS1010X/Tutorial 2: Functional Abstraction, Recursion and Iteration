@@ -1,0 +1,179 @@
+from math import *
+
+Question 1: Magnitude
+
+Define a function magnitude that takes in the coordinates of two points on a plane: (x1, y1) and (x2, y2) as arguments and returns the magnitude of the vector between them (i.e. length between two points).
+The input arguments have already been defined for you.
+
+Ans:
+
+# Import math package
+from math import *
+
+def magnitude(x1, y1, x2, y2):
+    # Returns the magnitude of the vector
+    # between (x1, y1) and (x2, y2).
+    hori_square = square(x1-x2)
+    vert_square = square(y1-y2)
+    return sqrt(hori_square + vert_square)
+
+def square(n):
+    return n ** 2
+
+Alternative Ans:
+def magnitude(x1, y1, x2, y2):
+    return sqrt((y2 - y1) ** 2 + (x2 - x1) ** 2)
+
+Question 2: Area 1
+
+A function can be viewed as a black box. All you need to know are the arguments it takes as input and what its output is.
+
+One way of calculating the area of a triangle is using the formula area = 1/2 * base * height. Define a function area that takes in two parameters, base and height, as inputs and returns the area of the corresponding triangle using this formula.
+
+Ans:
+
+def area(base, height):
+    return 0.5 * base * height
+
+Question 3: Area 2
+
+Another way to calculate the area of a triangle with sides A, B, and angle AB, is by using the trigonometric sine to get area = 1/2 * A * B * sin(AB), where AB is the included angle between sides A and B.
+Define a function area2 that takes in both sides as well as the included angle as inputs in this order, and returns the area of the corresponding triangle using this formula.
+
+The sin function is provided by the math package. You can call it by using sin after including the line from math import * at the top of your Python file.
+For information on how to use the math package (optional for now), refer to: http://docs.python.org/3.6/library/math.html
+
+Both functions calculate the same area. Can they be directly substituted for each other? Why or why not?
+
+Note: Python does not need "units" to do the calculation, e.g. in the test case, 1.2 is a measurement in radians.
+
+Ans:
+
+def area2(A, B, included_angle):
+    return 0.5 * A * B * sin(included_angle)
+
+###########
+##  Q2b  ##
+###########
+# Both functions area2 and area calculate the same result. 
+# Can they be directly substituted for each other? Why?
+"""
+Write your answer within these triple quotes
+Answer:
+No, they cannot. The arguments for the two functions are different.
+"""
+Question 4: Area 3
+
+We can also calculate the area of triangle using Heron’s Formula, area = math.sqrt(s(s - a)(s - b)(s - c)) where s = (a+b+c)/2.
+
+Assume you are given a function herons_formula that takes in the 3 sides of a triangle as arguments a, b, c and returns its area,
+define a function area3 that uses Heron’s formula to calculate and return the area of the given triangle given the (x, y) coordinates of the 3 points of the triangle.
+
+You may use the magnitude function defined in Question 1. It has already been defined for you in this question
+
+Ans:
+
+def area3(ax, ay, bx, by, cx, cy):
+    a = magnitude (ax, ay, bx, by)
+    b = magnitude (bx, by, cx, cy)
+    c = magnitude (cx, cy, ax, ay)
+    return herons_formula(a, b, c)
+
+def herons_formula(a, b, c):
+    s = (a + b + c) / 2
+    return sqrt(s * (s - a) * (s - b) * (s - c))
+    
+
+Question 5: Expression Evaluation
+
+This is a code-tracing question. For each of the questions below, what is printed when the expressions are evaluated?
+def foo1():
+    i = 0
+    result = 0 
+    while i < 10:   
+       result += i      
+       i += 1   
+    return result
+print(foo1())
+
+
+def foo2():
+    i = 0
+    result = 0
+    while i < 10:
+        if i == 3:
+            break
+        result += i
+        i += 1
+    return result
+print(foo2())
+
+
+def bar1():
+    result = 0
+    for i in range(10):
+        result += i
+    return result
+print(bar1())
+
+
+def bar2():
+    result = 0
+    for i in range(10):
+        if i % 3 == 1:
+            continue
+        result += i
+    return result
+print(bar2())
+
+
+Ans:
+
+foo1_output = 45
+foo2_output = 3
+bar1_output = 45
+bar2_output = 33
+
+Question 6: Sum of even factorials
+
+Write a function sum_even_factorials that finds the sum of the factorials of all even non-negative numbers less than or equal to n.
+
+Ans:
+
+def sum_even_factorials(n):
+    # Returns the sum of factorials of even numbers 
+    # that are less than or equal to n.
+    if n == 0:
+        return 1
+    if n % 2 == 1: # if odd
+        return factorial(n-1) + sum_even_factorials(n-3)
+    else:
+        return factorial(n) + sum_even_factorials(n-2)
+def factorial(n):
+    if n == 1:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+Question 7
+
+Suppose we define the function f such that:
+def f(g):
+    return g(2)
+
+def square(x):
+    return x ** 2
+
+>>> f(square)
+4
+>>> f(lambda z: z * (z + 1))
+6
+
+
+What happens if we (perversely) ask the interpreter to evaluate the combination f(f)? Explain.
+
+Ans:
+It will give "TypeError: 'int' object is not callable".
+Passing f into the function f will cause the statement `return f(2)` to be evaluated. When 2 is passed into f as an argument, it tries to return 2(2).
+2 is an integer, and not a function and cannot be invoked/called. 
+Hence TypeError occurs.
