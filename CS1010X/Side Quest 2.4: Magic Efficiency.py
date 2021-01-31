@@ -13,10 +13,10 @@
 # Simplifed Order notations:
 
 # 4^n * n^2
-# Ans: 4^n
+# Ans: 4^n * n^2
 
 # n * 3^n
-# Ans: 3^n
+# Ans: n * 3^n
 
 # 1000000000n^2
 # Ans: n^2
@@ -25,7 +25,7 @@
 # Ans: 2^n
 
 # n^n + n^2 + 1
-# Ans: n^2
+# Ans: n^n
 
 # 4^n + 2^n
 # Ans: 4^n
@@ -40,7 +40,7 @@
 
 # i. O(4^n * n^2)
 # ii. O(2^n / 1000000000)
-# iii. O(4^n + 2^n)
+# iii. O(n^n + n^2 + 1)
 # iv. O(n^2)
 
 
@@ -60,7 +60,7 @@
 # Time complexity of foo: O(n^2)
 
 # Space complexity of bar: O(n)
-# Space complexity of foo: O(n^2)
+# Space complexity of foo: O(n)
 
 def improved_foo(n):
     #Sum of 1 to n integers = n*(n+1)/2
