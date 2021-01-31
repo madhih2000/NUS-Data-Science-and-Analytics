@@ -1,0 +1,148 @@
+Question 1: Infinite Loop!
+
+Modify the following code so that foobar(n) returns the sum of all positive odd numbers less than or equal to n.
+            
+Ans:
+
+def foobar(n):
+    i, result = 1, 0
+    while i <= n:
+        if i % 2 == 1:
+            result = result + i
+        i += 1
+    return result
+
+Question 2: Factorial recursive
+
+Define a recursive function factorial_recursive that takes an argument n and calculates the factorial of n.
+        
+Ans:
+
+def factorial_recursive(n):
+    """Calculates n! using recursion"""
+    if n == 1:
+        return n
+    elif n == 0:
+        return 1
+    else:
+        return n*factorial_recursive(n-1)
+
+Question 3: Factorial Iteration
+
+Define an iterative function factorial_iteration that takes an argument n and calculates the factorial of n.
+
+
+Ans:
+
+
+def factorial_iteration(n):
+    """Calculates n! using iteration"""
+    res = 1
+    for i in range(2, n+1): 
+        res *= i 
+    return res 
+    
+Question 4: Exponentiation recursive
+
+Define a recursive function exponentiation_recursive that takes two arguments, x and e that returns x raise by the exponent e
+
+Ans:
+
+def exponentiation_recursive(x, e):
+    """Calculates x^e using recursion"""
+    if e == 1:
+        return x
+    elif e == 0:
+        return 1
+    else:
+        return x * exponentiation_recursive(x, e-1)
+        
+Question 5: Exponentiation iteration
+
+Define an iterative function exponentiation_iteration that takes two arguments, x and e that returns x raise by the exponent e
+
+
+Ans:
+
+def exponentiation_iteration(x, e):
+    """Calculates x^e iteratively"""
+    sum = 1
+    for i in range(1, e + 1):
+        sum = sum * x
+    return sum
+    
+Question 6: Occurrence
+
+Implement a function occurrence(s1, s2)that receives two strings and returns the number of times that the second string occurs in the first string. No overlap of occurrence shall be counted.
+
+For example, string "CS1010S" contains two occurrence of string "10". As another example, string "110101" contains only 1 occurrence of "101".
+
+Devise the algorithm well and you should aim to avoid using nested loops to complete the task.
+
+Check sample test cases for input and output format.
+
+Ans:
+
+def occurrence(s1, s2):
+    """Counts the number of occurrences of s2 in s1"""
+    return s1.count(s2)
+    
+Question 7: Star wars recursive
+
+Define a recursive function star_wars_recursive that takes an argument num_enemy_ships and returns a string command to take down all the enemy ships.
+
+The string command will comprise of alternating beams: '*-' and '*--'
+
+For example:
+star_wars_recursive(3) will return '*-*--*-'
+star_wars_recursive(6) will return '*-*--*-*--*-*--'
+star_wars_recursive(0) will return ''
+
+In a more detailed example:
+star_wars_recursive(3) is formed using '*-' + '*--' + '*-'
+
+Ans:
+
+
+def star_wars_recursive(num_enemy_ships):
+    """Take down enemy ships!!"""
+    string = ''
+    if num_enemy_ships == 0:
+        string = ''
+    elif num_enemy_ships % 2 != 0:
+        string += '*-'
+        return star_wars_recursive(num_enemy_ships - 1) + string
+    elif num_enemy_ships % 2 == 0:
+        string += '*--'
+        return star_wars_recursive(num_enemy_ships - 1) + string
+    else:
+        pass
+    return string
+
+
+Question 8: Star wars iteration
+
+Define a iterative function star_wars_iteration that takes an argument num_enemy_ships and returns a string command to take down all the enemy ships.
+
+The string command will comprise of alternating beams: '*-' and '*--'
+
+For example:
+star_wars_iteration(3) will return '*-*--*-'
+star_wars_iteration(6) will return '*-*--*-*--*-*--'
+star_wars_iteration(0) will return ''
+
+Ans:
+
+def star_wars_iteration(num_enemy_ships):
+    """Take down enemy ships!!"""
+    string = ''
+    for i in range(1,num_enemy_ships+1):
+        if i == 0:
+            string = ''
+        elif i % 2 != 0:
+            string += '*-'
+        elif i % 2 == 0:
+            string += '*--'
+        else:
+            pass
+    return string
