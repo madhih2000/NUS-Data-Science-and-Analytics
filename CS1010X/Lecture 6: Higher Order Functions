@@ -1,0 +1,223 @@
+Question 1: Compose 1
+
+The function compose is defined as the following:
+def compose(f,g):
+    return lambda x: f(g(x))
+
+What is the result of the following code?
+foo = lambda x: x+10
+compose(foo, foo) (3)
+
+Ans:
+
+answer = 23 #replace with your answer
+
+Question 2: Compose
+
+The function compose is defined as the following:
+def compose(f, g):
+    return lambda x: f(g(x))
+
+What is the result of the following code?
+foo = lambda x: x+1
+bar = compose(foo, foo)
+compose(bar, bar)(10)
+
+Ans:
+
+answer = 14 #replace with your answer
+
+Question 3
+
+Just as squaring a number multiplies the number by itself, suppose that we define the Higher Order Function thrice, which composes a function three times. That is thrice(f)(n) will return the same result as f(f(f(n))).
+
+The function thrice may be defined in this way:
+def compose(f, g):
+    return lambda x: f(g(x))
+
+thrice = lambda f: compose(compose(f, f), f)
+
+What is the result of thrice(lambda x: x+1)(6)?
+
+Ans:
+
+answer = 9 #replace with your answer
+
+Question 4: Using compose
+
+Given the functions
+
+ def times3(x):
+    return x * 3
+and
+def add1(x):
+    return x + 1
+
+Compose the two functions in the correct order to define the function three_x_plus_1to calculate the expression "3x+1".
+
+def compose(f, g):
+    return lambda x: f(g(x))
+
+Note: They have already been defined so please do NOT define them again.
+
+Ans:
+
+three_x_plus_1 = compose(add1, times3)  #replace with your answer
+#do NOT rewrite the functions times3 and add1.
+
+Question 5: Adder
+
+So far we have seen Higher Order Functions that take other functions as parameters. However, not all Higher Order Functions work this way. Functions can produce other functions as their output. This method allows for potentially higher levels of code reuse. An adder is a function that takes in an input number and returns that number incremented by some constant determined during the adder's definition.
+
+For example:
+add1 = make_adder(1)
+add1(5)
+#Result: 6
+
+make_adder(5)(10)
+#Result: 15
+
+Your task is to define a function make_adder that takes in a numerical argument n and returns an adder function that takes a single numerical argument and increments that argument by n.
+
+Ans:
+
+def make_adder(n):
+    return lambda x : x + n
+add1 = make_adder(1)
+
+Question 6: Verifier
+
+A verifier is a Higher Order Function that is constructed in a similar way to an adder. It is constructed with an arbitrary parameter that is stored as its key. It takes a single input and upon evaluation, that input is compared to the key the verifier was created with. It returns True if they are the same and False if they are different. We have defined is_same() that does this comparison for you.
+
+Your task is to define make_verifier using is_same() that produces a verifier with the behavior shown below:
+check_password = make_verifier(262010771)
+check_password(111111)
+#Result: False
+
+check_password(262010771)
+#Result: True
+
+Ans:
+
+def is_same(x,y):
+    return x == y
+    
+def make_verifier(key): 
+    return lambda n: is_same(n,key) 
+    
+check_password = make_verifier(262010771)
+
+Question 7
+
+The function fold given in the lecture is as follows:
+def fold(op, f, n):
+    if n == 0:
+        return f(0)
+    else:
+        return op(f(n), fold(op, f, n-1))
+
+
+minus and identity are defined as follows:
+minus = lambda x, y: x-y
+identity = lambda x: x
+
+What is the result of fold(minus, identity, 4)?
+
+Ans:
+
+2
+
+Question 8
+
+Consider the following alternative definition of fold:
+def fold(op, f, n):
+    if n == 0:
+        return f(0)
+    else:
+        return op(fold(op, f, n-1), f(n))
+# as compared to op(f(n), fold(op, f, n-1))
+
+minus and identity are defined as follows:
+minus = lambda x, y: x-y
+identity = lambda x: x
+
+What is the result of fold(minus, identity, 4)?
+
+Ans:
+
+-10
+
+Question 9
+
+Using fold2, as defined in the lecture and reproduced below, define a function geometric_series(a, r, n) that takes in three arguments: a, the first term of the series, r, the common ratio, and n, the number of terms in the geometric series, and returns the sum of all the terms in the series. For example, for a, r, n = 1, 2, 4, the sum of the series is 1 + 1 * 2 ^ 1 + 1 * 2 ^ 2 + 1 * 2 ^ 3 = 15.
+
+You may assume that n >= 1.
+
+def fold2(op, term, a, next, b, base): 
+    if a > b:
+        return base
+    else:
+        return op (term(a), fold2(op, term, next(a), next, b, base))
+
+Note: You must make use of fold2 in your definition. fold2 has already been defined for you; do not redefine it.
+
+Ans:
+
+def geometric_series(a, r, n):
+    return fold2(lambda x,y: x+y, lambda x: a*(r**(x-1)), 2, lambda n: n+1, n, a)
+
+Question 10
+
+In this question, you will learn how to import the random module and write a 4D result generator.
+
+The random() function from the random module returns a floating point number in the range [0.0, 1.0) — the square bracket represents a “closed interval on the left” and the round parenthesis represents an “open interval on the right”. In other words, 0.0 is possible, but all returned numbers will be strictly less than 1.0.
+
+Write a function generate_random_4d_number() that returns a random integer in the range [0,9999].
+
+
+
+Hint: It is possible to scale (multiply/divide) or offset (plus/minus) the result from random() to get a random number which fits your desired range.
+
+
+
+Note: There are many ways to import modules.
+
+(I) The following example imports all attributes (e.g. functions) from the foo module. However, you will need to add a prefix foo. to the attribute when you use it in your code. If the foo module has a bar() function which you want to use in your code, you will need to type foo.bar().
+
+import foo
+(II) The following example imports all attributes from the foo module (hence the *). All attributes will share the same namespace. You can use attributes in your code by calling them directly. However, this may cause naming conflicts if there are attributes in foo and your code which share the same name. This method is not advisable for large programs.
+
+from foo import *
+(III) The following example imports a specific attribute bar from the foo module. You can use bar in your code simply by calling bar directly, instead of foo.bar (which will not work). This is the recommended way if you are only using specific attributes from another module as it reduces the number of possible naming conflicts and the run time too.
+
+from foo import bar
+
+
+Ans:
+
+# import random module here
+import random 
+
+def generate_random_4d_number():
+    return random.randint(1000,9999)
+    
+Question 11: Counting Combinations
+
+Recall the Counting Change problem in lecture. The problem of counting the number of ways m items can be picked from a set of n items can be solved by breaking the problem into two subproblems in a similar manner. Define a recursive function num_combination(n, m) that returns the number of ways m different items can be picked from a set of n distinct items.
+
+For example, there are 6 ways to choose 2 items from a set of 4 items.
+
+Hint: The possible ways that sets of m items can be formed may be divided into two groups: those that contain the first item in the set of n items and those that do not contain the first item in the set of n items.
+
+Hint 2: If you code seems to run in IDLE, but everything turns red. What has likely happened is that you have a bug in your code that caused one of the tests cases to fail (timeout), that then causes all the test cases to turn red. 
+
+Ans:
+
+def num_combination(n, m):
+    """Calculates number of ways to choose m items from a set of n distinct items"""
+    if m == 0:
+        return 1
+    elif n < m:
+        return 0
+    else:
+        return num_combination(n-1,m-1)+ num_combination(n-1,m)
