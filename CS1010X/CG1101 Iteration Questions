@@ -1,0 +1,78 @@
+Question 1: Perfect Number
+
+A perfect number is a positive integer that is equal to the sum of its proper divisors. A proper divisor is a positive integer other than the number itself that divides the number evenly (i.e. no remainder). For example, 6 is the smallest perfect number, because the sum of its proper divisors 1, 2, and 3 is equal to 6. 8 is not a perfect number because 1 + 2 + 4 is not equal to 8.
+
+Write a function perfect_number that accepts a positive integer in the range [1, 10000] and returns True/False depending on whether the number is a perfect number or not.
+
+Ans:
+
+def perfect_number(number):
+    sum = 0
+    for x in range(1,number):
+        if number % x == 0:
+            sum += x
+    return sum == number
+
+Question 2: Print Pattern
+
+Write a function pattern that reads in a positive integer input and returns a stylized pattern as demonstrated in the sample runs.
+
+Ans:
+
+def pattern(number):
+    string = ''
+    for i in range(1,number + 1):
+        string += '#' + '-' * i
+    return string
+
+
+Question 3: Invert Number
+
+Write a function invert_number that reads in a positive integer, reverses the order of each of its digit and returns out the inverted value. For example, if input number is 12345, your program output should be 54321.
+
+Ans:
+
+def invert_number(num):
+    return int(str(num)[::-1])
+    
+Question 4: Reversed Numbers
+
+You are to write a single function reversed_numbers that reads two positive integers low and high, that returns how many integers in the range [low, high] whose reverse is the same as the original value. You may assume that low ≤ high. For example, if low is 150 and high is 202, then there are 6 integers in the range [150, 202] whose reverse is the same as itself. They are: 151, 161, 171, 181, 191, and 202.
+
+You are given the invert_number function from the previous task. You are not allowed to use any array / string methods for this task.
+
+Ans:
+
+def reversed_numbers(low, high):
+    count = 0
+    for i in range(low, high+1):
+        if i == invert_number(i):
+            count += 1
+        else:
+            pass
+    return count
+
+Question 5: Count Substring
+
+Write a program count_substring that reads a string (less than 20 characters) from the user and stores it into a character array.
+
+Using just one loop, devise an algorithm that counts the number of substrings that begin with character 'A' and ends with character 'X'. For example, given the input string "CAXAAYXZA", there are four substrings that begin with 'A' and ends with 'X', namely: "AX", "AXAAYX", "AAYX", and "AYX".
+
+You can assume that the input string is composed of English upper case letters only.
+
+Ans:
+
+
+def count_substring(string):
+    tot_count = 0
+    count_A = 0
+    for i in range(len(string)): 
+        if string[i] == 'A': 
+            count_A += 1
+        if string[i] == 'X': 
+            tot_count += count_A 
+    # required count 
+    return tot_count 
+  
+
+ 
