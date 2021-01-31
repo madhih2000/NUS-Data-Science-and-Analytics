@@ -1,0 +1,178 @@
+Question 1: Legendre's Conjecture
+
+Legendre's conjecture (proposed by Adrien-Marie Legendre in 1912) states that there is at least one prime number in range [n^2, (n + 1)^2] for every positive integer n.
+
+Implement the function legendre that takes in an input parameter n and tests Legendre's conjecture over a range of numbers from 1 up to the input number n.
+
+This means if the input is 4, you should check that there is at least one prime between 1^2 and 2^2, and at least one prime between 2^2 and 3^2, and at least one prime between 3^2 and 4^2, and at least one prime between 4^2 and 5^2.
+
+As you might have guessed, the one and only return value of this function is True. You can pass this question by simply writing return True but you will just be compromising your own learning.
+
+Note: Coursemology will limit your runtime. You will need an efficient way of doing this to clear the question
+
+Ans:
+
+def legendre(n):
+    # code to test Legendre's conjecture over a range of numbers from 1 up to the input number n.
+    for i in range (n*n, (((n+1)*(n+1))+1)): 
+        if(isprime(i)): 
+            return True 
+def isprime(n): 
+    i = 2
+    for i in range (2, int(( n**0.5 + 1 ))): 
+        if n % i == 0: 
+            return False
+    return True
+    
+Question 2: Legendre's Conjecture - Part 2!
+
+Now, implement the function legendre_n to test Legendre's Conjecture for a specific number n.
+
+Given an integer n, the function legendre_n should return the number of prime numbers between n^2 and (n+1)^2.
+
+Ans:
+
+def legendre_n(n):
+    count = 0
+    for i in range (n*n, (((n+1)*(n+1))+1)): 
+        if(isprime(i)): 
+            count += 1
+    return count
+def isprime(n):
+    if n == 1:
+        return False
+    else:
+        i = 2
+        for i in range (2, int(( n**0.5 + 1 ))): 
+            if n % i == 0: 
+                return False
+        return True
+
+
+
+Question 3: Goldbach's Conjecture
+
+Goldbach's conjecture (proposed by Christian Goldbach in 1742) is one of the oldest unsolved problems in number theory. It states: every even integer greater than 2 can be written as the sum of two primes.
+
+Implement a function:
+def goldbach(n):
+to test Goldbach's Conjecture over a range of even numbers from 4 up to the input number n. This means that if the input is 8, you should check that 4 can be written as a sum of two primes (2 + 2) and 6 can be written as a sum of two primes (3 + 3) and 8 can be written as a sum of two primes (3 + 5).
+
+You may assume that input number n is always greater or equal to 4.
+
+Ans:
+
+# Python3 program to implement Goldbach's 
+# conjecture 
+import math 
+MAX = 10000; 
+# Array to store all prime less 
+# than and equal to 10^6 
+primes = []; 
+# Utility function for Sieve of Sundaram 
+def sieveSundaram(): 
+	
+	# In general Sieve of Sundaram, produces 
+	# primes smaller than (2*x + 2) for a 
+	# number given number x. Since we want 
+	# primes smaller than MAX, we reduce 
+	# MAX to half. This array is used to 
+	# separate numbers of the form i + j + 2*i*j 
+	# from others where 1 <= i <= j 
+	marked = [False] * (int(MAX / 2) + 100); 
+	# Main logic of Sundaram. Mark all 
+	# numbers which do not generate prime 
+	# number by doing 2*i+1 
+	for i in range(1, int((math.sqrt(MAX) - 1) / 2) + 1): 
+		for j in range((i * (i + 1)) << 1, 
+						int(MAX / 2) + 1, 2 * i + 1): 
+			marked[j] = True; 
+	# Since 2 is a prime number 
+	primes.append(2); 
+	# Print other primes. Remaining primes 
+	# are of the form 2*i + 1 such that 
+	# marked[i] is false. 
+	for i in range(1, int(MAX / 2) + 1): 
+		if (marked[i] == False): 
+			primes.append(2 * i + 1); 
+# Function to perform Goldbach's conjecture 
+def goldbach(n): 
+	sieveSundaram()
+	# Return if number is not even 
+	# or less than 3 
+	if (n <= 2 or n % 2 != 0): 
+	    return False
+	# Check only upto half of number 
+	i = 0; 
+	while (primes[i] <= n // 2): 
+		# find difference by subtracting 
+		# current prime from n 
+		diff = n - primes[i]
+		# Search if the difference is also 
+		# a prime number 
+		if diff in primes: 
+			# Express as a sum of primes 
+		    return True
+		i += 1; 
+    
+
+Question 4: Maclaurin Series
+
+In mathematics, the Taylor series is a representation of a function as an infinite sum of terms calculated from the values of its derivatives at a single point. It may be regarded as the limit of the Taylor polynomials. Taylor series are named after the English mathematician Brook Taylor. If the series is centered at zero, the series is also called a Maclaurin series, named after the Scottish mathematician Colin Maclaurin.
+
+As an example, an approximation for e^x is:
+
+
+Implement a function:
+def maclaurin(x, n):
+that reads in two positive integers x and n, calculate e^x up to the nth term in the Maclaurin series. i.e.,   
+
+Define n! as a function factorial in your program. You should correct your output to 3 decimal places. (You may use round(value, n) to round value to n decimal places.)
+
+Ans:
+
+
+import math
+def maclaurin(x, n):
+    # code that approximates e^x up to the nth term
+    e_to_x = 0
+    for i in range(n):
+        e_to_x += x**i/math.factorial(i)
+    
+    return round(e_to_x, 3)
+
+
+Question 5: Conway Sequence
+
+The Conway’s recursive sequence is defined by the following recurrence relation for any positive integer n.
+
+
+
+Implement the function conway that reads in a positive integer n, and returns a(n).
+
+Ans:
+
+def conway(n):
+    # code that implements Conway's recursive sequence.
+    if n == 1 or n == 2: 
+        return 1
+    else: 
+        return conway(conway(n-1)) + conway(n-conway(n-1)); 
+
+Question 6: Recursive Sum
+
+Write a recursive function recursive_sum to accept a non-negative integer x and calculate f(x) based on the following formula.
+
+Ans:
+
+
+def recursive_sum(n):
+    if n == 0 or n == 1 or n == 2:
+        return 1
+    elif n >= 3:
+        if n % 2 == 0:
+            return recursive_sum(n-1) + recursive_sum(n-2) + recursive_sum(n-3)
+        elif n % 2 != 0:
+            return recursive_sum(n-1) + recursive_sum(n-2)
+    else:
+        pass
