@@ -1,0 +1,142 @@
+Question 1
+
+Using Composite Simpson's Rule, the integral of a function f from a to b is approximated as
+
+
+where h = (b - a)/n, for some even integer n, and yk = f(a+ kh), k = 0, 1, ..., n. Increasing n increases the accuracy of the approximation.
+
+Define a function that takes as arguments f, a, b, and n and returns the value of the integral, computed using the above Composite Simpson's Rule.
+
+Ans:
+
+def calc_integral(f, a, b, n):
+    h = (b-a)/n
+    i, total = 0, 0
+    while i <= n:
+        term = f(a+i*h)
+        if i == 0 or i == n:
+            total += term
+        elif i % 2 == 0:
+            total += 2*term
+        else:
+            total += 4*term
+        i += 1
+    return (total * h) / 3.0
+    
+Question 2
+
+Write a function g(k) that solves the following product using the higher order function fold.
+
+Ans:
+
+def fold(op, f, n):
+    if n == 0:
+        return f(0)
+    return op(f(n), fold(op, f, n-1))
+def g(k):
+    return fold(lambda x,y : x * y, lambda x: x - (x+1)**2, k)
+
+Question 3
+
+Accumulate takes as arguments the same term and range specifications as sum. In addition, it takes in a combiner function (of two arguments) that specifies how the current term is to be combined with the accumulation of the preceding terms and a base value that specifies what value to use when the terms run out. Write the function accumulate(combiner, base, term, a, next, b). Give a recursive solution.
+
+Ans:
+
+def accumulate(combiner, base, term, a, next, b):
+    if a > b:
+        return base
+    return combiner(term(a), accumulate(combiner, base, term, next(a), next, b))
+    
+Question 4
+
+Define the function sum discussed in lecture in terms of accumulate.
+
+Ans:
+
+def sum(term, a, next, b):
+    return accumulate(lambda x,y: x+y, 0, term, a, next, b)
+
+Question 5
+
+Now give an iterative solution accumulate_iter(combiner, null_value, term, a, next, b).
+
+
+Ans:
+
+
+def accumulate_iter(combiner, null_value, term, a, next, b):
+    terms = ()
+    # generate all the terms and put them in reverse order
+    while a <= b :
+        terms = (term(a),) + terms
+        a = next(a)
+    # combine the terms
+    result = null_value
+    for term in terms:
+        result = combiner(term, result)
+    return result
+    
+Question 6: Representing a point
+
+A point can be represented as a pair of numbers: the x coordinate and the y coordinate.
+
+Based on this representation of a point, define a point constructor make_point.
+Define selector x_point which returns the x coordinate of a given point.
+Define selector y_point which returns the y coordinate of a given point.
+
+Ans:
+
+def make_point(x, y):
+    p = [x,y]
+    return p 
+def x_point(p):
+    return p[0]
+    
+def y_point(p):
+    #Your code here
+    return p[1]
+#For running public test case, do not delete
+p1 = make_point(2, 3)
+
+Question 7: Representing a line segment
+
+A line segment has two endpoints. It can be represented by a pair of points: a starting point and an ending point.
+
+Based on this representation of a line segment, define a line segment constructor make_segment.
+Define selector start_segment which returns the starting point of a given line segment.
+Define selector end_segment which returns the ending point of a given line segment.
+
+Ans:
+
+
+def make_segment(p1, p2):
+    s = [p1,p2]
+    return s
+    
+def start_segment(s):
+    return s[0]
+def end_segment(s):
+    #Your code here
+    return s[1]
+    
+#do not uncomment! this is for reference only.
+p1 = make_point(2, 3)
+p2 = make_point(5, 7)
+
+Question 8
+
+Finally, using the selectors and constructors which you have defined, define a function midpoint_segment that takes a line segment as argument and returns its midpoint.
+
+Ans:
+
+def midpoint_segment(segment):
+    start_point = start_segment(segment)
+    end_point = end_segment(segment)
+    mid_x = 0.5 * (x_point(start_point) + x_point(end_point))
+    mid_y = 0.5 * (y_point(start_point) + y_point(end_point))
+    return make_point(mid_x, mid_y)
+    
+#for running public test case, do not delete!
+p1 = make_point(2, 3)
+p2 = make_point(5, 7)
+s = make_segment(p1, p2)
