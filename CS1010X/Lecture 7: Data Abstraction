@@ -1,0 +1,200 @@
+Question 1
+
+A tuple is a Python data structure that holds a sequence of values. To define a tuple, you include a list of values in a pair of parentheses separated by commas. If there is only one value in the tuple, a comma after the last element is required. The values inside a tuple need not be numerical - they can be strings or even some other tuples.
+
+Please select all valid tuple(s) from the following answers.
+
+Ans:
+
+('C','S',1,0,1,0,'S')
+('Wai', 'Hon',)
+('C',)
+
+Question 2
+
+In Tutorial 1 we talked about string indexing. Every character in a string can be accessed by both its positive and negative indices.
+Given my_str = 'Emmanuel', if you count from left to right, the characters have indices from 0 to 7. If you count backwards, the characters have indices from -1 to -8. It turns out that indexing in Tuples is very similar.
+
+Now if my_tuple = ('tuple', 'is', 'simple'), what will my_tuple[1], my_tuple[-1] and my_tuple[-4] return?
+
+Ans:
+
+'is', 'simple', IndexError
+
+Question 3
+
+Given the code below:
+foo = (1, 2)
+bar = (3, 4)
+foobar = (foo, bar)
+
+Which expression should we enter to retrieve a value of 2 from the variable foobar?
+
+Ans:
+
+foobar[0][1]
+
+Question 4: Average
+
+Write a function average that accepts a tuple that contains integer elements as an argument and returns the average value of the elements within the argument. You can assume that the number of elements in the tuple would be greater than 0.
+
+Ans:
+
+def average(values):
+    return sum(values)/len(values)
+    
+Question 5: Max and Min
+
+Functions can only return a single value but sometimes, we may want functions to return multiple values. Tuples can come in handy in such cases. We can create a tuple containing multiple values and return the tuple instead of a single value.
+
+Write a function max_and_min that accepts a tuple containing integer elements as an argument and returns the largest and smallest integer within the tuple. The return value should be a tuple containing the largest and smallest value, in that order. Do not use the builtin min and max function for this question.
+
+Hint: Use iteration to loop through each value of the tuple parameter to find the maximum and minimum values.
+
+Ans:
+
+def max_and_min(values):
+    max_v = min_v = values[0]
+    for v in values[1:]:
+        if v < min_v:
+            min_v = v
+        elif v > max_v:
+            max_v = v
+    return (max_v, min_v)
+    
+Question 6: Mid-Point
+
+Write a function calculate_mid_point that accepts two sets of coordinates as arguments and returns a set of coordinates (represented by a pair) that represents the mid-point of these two input coordinates.
+
+Coordinates in this question are represented by pairs (tuples containing only TWO elements). The elements in the pair represents the x, y coordinates of a x-y plane.
+
+Examples of points: (1, 1.5), (2, -3), (-3.5, 0).
+
+Ans:
+
+def calculate_mid_point(coord_1, coord_2):
+    x_mid = (coord_1[0] + coord_2[0])/2
+    y_mid = (coord_1[1] + coord_2[1])/2
+    return (x_mid, y_mid)
+    
+Question 7
+
+To check equality in Python, we use either == or is. The difference is that == checks value while is checks identity.
+
+Given the code below:
+bar = ("a", "b")
+foo = ("a", "b")
+bat = bar
+bar = foo
+
+What will be the result for this code: bat is foo?
+
+Ans:
+
+False
+
+Question 8
+
+What values will you get when you evaluate the following boolean expressions?
+
+(1, 2, 3) == (1, (2, 3))
+(1, 2, 3) == (1, 2, (3))
+0/1 is 0
+3.5 == 3.2 + 0.3
+
+Ans:
+
+False True False True
+
+Question 9
+
+For the next few questions we will practice slicing.
+Given your_tuple = (0, 1, 2, 3, 4)
+What will you get when you evaluate the following expressions?
+
+your_tuple[:2]
+your_tuple[2:]
+your_tuple[:10]
+your_tuple[10:]
+
+A : (0, 1, 2, 3, 4)
+B : (0, 1)
+C : (2, 3, 4)
+D : (0, 1, 2)
+E : (3, 4)
+F : ()
+G : IndexError
+H : Confused :S
+
+(Hint : It will help to picture the slicing index given relative to the "indices" of the tuple)
+
+Ans:
+
+B C A F
+
+Question 10
+
+Now we practice slicing with negative indices.
+Once again, given your_tuple = (0, 1, 2, 3, 4)
+What will you get when you evaluate the following expressions?
+
+your_tuple[:-3]
+your_tuple[-3:]
+your_tuple[:-10]
+your_tuple[-10:]
+
+A : (0, 1, 2, 3, 4)
+B : (0, 1)
+C : (2, 3, 4)
+D : (0, 1, 2)
+E : (3, 4)
+F : ()
+G : IndexError
+H : Confused :S
+
+(Hint : It will help to picture the slicing index given relative to the "negative indices" of the tuple)
+
+Ans:
+
+B C F A
+
+Question 11: Get student records
+
+Each student record is represented as a tuple and it consists of a student's matriculation number and name.
+
+Example: ('A0077294U', 'Shao Hong').
+
+In the database, there is a collection of student records, represented by a tuple of tuples.
+
+Write a function get_student_name that returns the name of a student, when a student's matriculation number and the student records are passed into the function as arguments. The string 'Not found' should be returned if the matric number does not match any of the records in the database.
+
+
+Ans:
+
+# Do not edit student_records
+student_records = (('A0077294U', 'Shaohong'), ('A0084135B', 'Yang Shun'), ('A0015384U', 'Soda'), ('A0088245A', 'Alex'), ('A0012345A', 'Ben'))
+def get_student_name(matric_num, records):
+    for item in records:
+        if item[0] == matric_num:
+            return item[1]
+    return 'Not found'
+    
+ 
+Question 12
+
+Tuple is an immutable data type. It means that once created, the value inside a tuple cannot be changed. For example, if you have t = (1, 2, 3), t[2] = 10 will give you an IndexError. If you want to change a particular value inside a tuple, you have to construct a new one.
+
+Now implement a function change_value_at_index that takes in three parameters: a tuple, an index, and a new value, and changes the value at the index to the new value. The function should return the modified tuple. If index is out of range, return the original tuple.
+
+Hint: Remember that tuple values can be accessed through negative indices! The valid range of indices for a tuple of length n is [-n, n).
+
+Ans:
+
+
+def change_value_at_index(tpl, index, value):
+    # Your code here
+    if index >= len(tpl) or index < -len(tpl):
+        return tpl
+    else:
+        a = tpl[:index] + (value,) + tpl[index+1:]
+        return a
