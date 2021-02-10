@@ -1,0 +1,193 @@
+Question 1
+
+The function len() takes in a tuple and returns the number of elements inside that tuple. Consider the tuple below:
+
+ x = ((1, 2), ((3, 4), (5, (6, 7), (8, 9))), (10, (11, 12)), (13, (14, 15), (16,), 17, 18, (19, 20)))
+
+What is len(x)?
+
+Ans:
+4
+
+Question 2
+
+Recall that the map function defined in the lecture maps some operations onto each element of a sequence.
+
+def map(fn, seq):
+    if seq == ():
+        return ()
+    else:
+        return (fn(seq[0]), ) + map(fn, seq[1:])
+
+For example, map(lambda x: x if x >= 0 else -x, (1, -2, -5, 9)) maps each element to its absolute value and gives you (1, 2, 5, 9).
+What is the output of the following statement:
+
+square = lambda x: x * x
+double = lambda x: x * 2
+
+x = (1, 2, 3, 4)
+print(map(double, map(square, x)))
+
+Ans:
+
+(2, 8, 18, 32)
+
+Question 3
+
+x = (1, 2, -3, 4, 5, -6, 7)
+map(mystery_op, x)
+The return value of map(mystery_op, x) gives (1, 8, 18, 32, 50, 72, 98).
+The following functions have been defined for you.
+
+square = lambda x: x * x
+double = lambda x: x * 2
+abs = lambda x: x if x > 0 else -x
+
+Which of the following are possible implementations of mystery_op?
+
+(i) mystery_op = lambda x: double(square(x))
+(ii) mystery_op = lambda x: square(double(abs(x)))
+(iii) mystery_op = lambda x: double(square(abs(x)))
+(iv) mystery_op = lambda x: square(abs(double(x)))
+(v) mystery_op = lambda x: double(abs(square(x)))
+
+Ans:
+
+None of the above
+
+Question 4
+
+Write a function square_odd_terms that accepts a tuple of integers as argument and returns a tuple with the odd numbers in the tuple squared. Even numbers should remain the same.
+
+E.g. square_odd_terms((1, 2, 3, 4, 5)) returns (1, 2, 9, 4, 25).
+
+The map function from the lecture notes has been implemented for you, you may use it in your code for this question if you wish.
+
+Note: if you are having syntax issues with lambda, remember that the body of the function must be a single expression.
+
+Ans:
+
+
+# Note that map(fn, tpl) from your lecture notes has been implemented
+# for you and you can use it in your answer
+def square_odd_terms(tpl):
+    return tuple((num**2 if num%2 else num for num in tpl))
+
+
+Question 5
+
+Recall that the accumulate function defined in the lecture tries to "combine" all the elements of a sequence.
+
+def accumulate(fn, initial, seq):
+    if seq == ():
+        return initial
+    else:
+        return fn(seq[0],  accumulate(fn, initial, seq[1:]))
+For example, if we define add = lambda x,y: x+y, then accumulate(add, 0, (1, 2, 3, 4, 5)) adds up the elements and gives you 15.
+What is the output of the following statement?
+
+accumulate(lambda x,y:(x, y), (), (1, 2, 3)) 
+
+Ans:
+
+(1, (2,(3,())))
+
+Question 6
+
+Recall that the filter function defined in the lecture filters out elements of a sequence that DOES NOT satisfy the predicate (i.e. keeps elements that satisfy the predicate)
+
+def filter(pred, seq):
+    if seq == ():
+        return ()
+    elif pred(seq[0]):
+        return (seq[0],) + filter(pred, seq[1:])
+    else:
+        return filter(pred, seq[1:])
+For example:
+
+is_odd = lambda x : x%2 != 0
+filter(is_odd, (1, 2, 3, 4, 5))
+Outputs (1, 3, 5). What is the output of the following statement?
+
+x = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+print(filter(isPrime, x))
+Note that isPrime(n) returns True if n is a prime, False otherwise.
+
+Ans:
+
+(2,3,5.7)
+
+Question 7
+
+Now that you have learned map, filter and accumulate, what is the output of the following statement?
+
+minus = lambda x,y: x - y 
+is_odd = lambda x: x%2 == 1 
+square = lambda x: x**2 
+print(accumulate(minus, 0,  map(square, filter(is_odd, tuple(range(6))))))
+
+Ans:
+17
+
+Question 8: Making a copy
+
+Recall that in lecture, it was mentioned that making a copy of a tuple is not that trivial. Suppose we are given the following function:
+def wrong_copy_tree(tree):
+    return tree
+It will not make a new copy but rather return the original tree.
+
+Can you define a function copy_tree that takes an argument tree and returns a copy of the tree. Note that we will be testing for tuples within tuples, such as (1, 2, (3, 4)).
+
+Ans:
+
+
+def copy_tree(tree):
+  new_tree = ()
+  for i in tree:
+    if isinstance(i, tuple):
+      new_i = (copy_tree(i),)
+    else:
+      new_i = (i,)
+    new_tree = new_tree + new_i
+  return new_tree
+# Do not remove this line
+original = (1, 2, 3, 4)
+
+Question 9
+
+Recall the count_leaves(tree) function defined in lecture 8 which counts the number of leaves in a tree.
+
+def count_leaves(tree):
+    if tree == ():
+        return 0
+    elif is_leaf(tree):
+        return 1
+    else:
+        return count_leaves(tree[0]) + count_leaves(tree[1:])
+Consider the following tuple x:
+
+x = ((1, 2), ((3, 4), (5, (6, 7), (8, 9))), (10, (11, 12)), (13, (14,), (16,), 17, 18, (19, 20)))
+What is count_leaves(x)?
+
+Ans:
+
+19
+
+Question 10
+
+In the lecture we talked about type conversions among sequences. Ryan wants to convert tuple to strings. However, when he tried to apply str(('c', 's', 1, 0, 1, 0, 's')), he got "('c', 's', 1, 0, 1, 0, 's')" instead of 'cs1010s'. Could you help him out?
+Write a to_str() function that takes in a tuple tup and returns its string form that Ryan wants.
+
+Your may assume that the input list only contains integers and strings.
+Hint: The following functions have been defined for you. Practice using them!
+
+map(fn, seq)
+filter(pred, seq)
+accumulate(fn, initial, seq)
+
+Ans:
+
+def to_str(tup):
+    return accumulate(lambda x, s: str(x) + s, '', tup)
+    
+
