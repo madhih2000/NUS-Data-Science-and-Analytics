@@ -1,0 +1,106 @@
+Question 1
+
+Assign exp to an expression using index notation that will return the value 1 when the identifier tup is bound to the following:
+
+tup = (7, (6, 5, 4), 3, (2, 1))
+
+
+Note that index notation can be chained. For example:
+>>> tup = (7, (6, 5, 4), 3, (2, 1))
+>>> tup[1][2]
+4
+
+
+Note that assigning exp to 1 is not a valid answer.
+
+Ans:
+
+exp = tup[3][1] #Write expression here
+
+Question 2
+
+Assign exp to an expression using index notation that will return the value 1 when the identifier tup is bound to the following:
+
+tup = (7, (6,), (5, (4,)), (3, (2, (1,))))
+
+
+Note that assigning exp to 1 is not a valid answer.
+
+Ans:
+
+exp =  tup[3][1][1][0] #Write expression here
+
+Question 3
+
+Assign exp to an expression using index notation that will return the value 1 when the identifier tup is bound to the following:
+
+tup = ((7), (6, 5, 4), (3, 2), 1)
+
+
+Note that assigning exp to 1 is not a valid answer.
+
+Ans:
+
+exp = tup[3] #Write expression here
+
+Question 4
+
+Assign exp to an expression using index notation that will return the value 1 when the identifier tup is bound to the following:
+
+tup = (7, ((6, 5), (4,), 3, 2), ((1,),))
+
+
+Note that assigning exp to 1 is not a valid answer.
+
+Ans:
+
+exp = tup[2][0][0] #Write code here
+
+Question 5: Even rank
+
+Write a Python function called even_rank that takes in a tuple as its only argument and returns a tuple containing all the elements of even rank (i.e. every second element from the left) from the input tuple.
+
+Ans:
+
+def even_rank(tup):
+    even_tup = tup[1::2]
+    return even_tup
+
+Question 6: Odd Even Sums
+
+Write a function called odd_even_sums that takes in a tuple of numbers as its only argument and returns a tuple of two elements: the first is the sum of all odd-ranked numbers in the input tuple, whereas the second element is the sum of all even-ranked elements in the input.
+
+
+Ans:
+
+def odd_even_sums(val):
+    odd_tup = val[::2]
+    even_tup = val[1::2]
+    return (sum(odd_tup),sum(even_tup))
+ 
+Question 7: Hanoi
+
+In this question, you will be required to build a variant of the solution to the “Towers of Hanoi” problem presented in class. We define a disk move to be a pair of two numbers: the source pole and the destination pole. For example, (1, 3) indicates the move of a disk from the first pole to the third.
+
+Write a function called hanoi that takes in 4 parameters:
+the number of disks,
+the source pole.
+the destination pole,
+the auxiliary pole,
+and returns a tuple of disk moves that, if executed in that sequence, will move all the disks from the source pole to the destination pole and comply with the rules of the Tower of Hanoi game. You will not get any marks for a solution that prints a sequence of moves, since that has already been given in class.
+
+Ans:
+
+def hanoi(n, src, dsc, aux):
+    new_tuple = ()
+    if n == 0:
+        return ()
+    if n == 1:
+        return((src,dsc),)
+    else:
+        new_tuple = hanoi(n-1,src,aux,dsc)
+        new_tuple += hanoi(1,src,dsc,aux)
+        return new_tuple+hanoi(n-1,aux,dsc,src)
+    pass
+
+
