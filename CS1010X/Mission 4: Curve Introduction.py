@@ -21,7 +21,7 @@ def vertical_line(point, length):
         return make_point(x_of(point), (length*t) + y_of(point))
     return func
 # (d)
-# (Number, Unit-Interval) -> Point
+# (Point, Number) -> Curve
 # (e)
 # draw_connected(200, vertical_line(make_point(0.5, 0.25), 0.5))
 
