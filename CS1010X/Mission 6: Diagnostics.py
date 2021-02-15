@@ -60,7 +60,7 @@ print('average: ' + str(average_of_five(profile_fn ( lambda : your_gosper_curve_
 # When the angle is fixed, there would be no significant advantage in speed for the functions that are customized more.
 # gosper_curve takes 1.58s but gosper_curve_With angle which is more customized takes 1.99s which is similar. There is no significant difference.
 # gosper_curve_with_angle and your_gosper_curve_with_angle are customizable to a great extent but there is significant difference in time (1.99s and 18.26s)
-# Therefore, customization is not the main factor that affects the time.
+# Customized functions run faster than customizable functions.
 
 
 
