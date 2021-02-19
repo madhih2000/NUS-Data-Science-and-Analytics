@@ -1,0 +1,251 @@
+Question 1
+
+Ben Bitdiddle is required to implement a function at_least_n which takes in a list of integers and an integer n, and returns the original list with all the integers smaller than n removed.
+He implemented his function like this
+def at_least_n(lst,n):
+    for i in range(len(lst)):
+        if lst[i]<n:
+            lst.remove(lst[i])
+    return lst
+
+Is this implementation correct?
+
+Ans:
+
+
+"""Your Answer Here"""
+'''
+No, the implementation is wrong. The lst[i] is using index to remove the element. 
+Instead, for i would mean, for every element. 
+Then, it should iterate through the whole list which we can just say as lst. 
+We do not need range(len(lst)).
+From there, we remove i, which is the element itself and not specify the index that we want to remove.
+'''
+
+
+Question 2
+
+Obviously the above implementation is wrong. But Ben decides to try again!
+def at_least_n(lst,n):
+    for i in lst:
+        if i < n:
+            lst.remove(i)
+    return lst
+
+Is this implementation correct? What is the moral of the story?
+
+Ans:
+
+"""Your Answer Here"""
+#The list is mutated when the iteration happens. When the iteration happens, certain values are not examined which causes the output to be wrong.
+
+Question 3
+
+    Obviously the above implementation is also wrong. Help him out by implementing your own! The function at_least_n is supposed to take in a list of integers and an integer n, and returns the original list with all the integers smaller than n removed.
+
+
+
+Ans:
+
+def at_least_n(lst,n):
+    lst[:]= [x for x in lst if x >= n]
+    return lst
+### DO NOT MODIFY THIS ###
+lst1 = list(range(10))  
+lst2 = list(range(8))
+lst3 = list(range(6,10))
+
+Question 4
+
+As per the previous question, now Ben Bitdiddle has to implement the function such that it returns a new list instead. Help him out!
+
+Ans:
+
+
+def at_least_n(lst, n):
+    return [x for x in lst if x >= n]
+### DO NOT MODIFY THIS ###
+lst1 = list(range(10))  
+lst2 = list(range(8))
+lst3 = list(range(6,10))
+
+Question 5
+
+A matrix can be represented in Python by a list of lists (nested lists). For example,
+m = [[ 1, 2, 3], [4, 5, 6], [7, 8, 9]] represents the following 3 X 3 matrix:
+
+
+
+Write a function col_sum which takes in a matrix and returns a list, where the i-th element is the sum of the elements in the i-th column of the matrix, using nested for loops. You can assume that the matrix will not be empty, and has exactly m x n elements, where m and n are positive integers.
+
+Ans:
+
+
+def col_sum(matrix):
+    answer = []
+    for column in range(len(matrix[0])):
+        t = 0
+        for row in matrix:
+            t += row[column]
+        answer.append(t)
+    return answer
+    
+Question 6
+
+Write a function row_sum which takes in a matrix and returns a list, where the i-th element is the sum of the elements in the i-th row of the matrix.
+
+Ans:
+
+
+def row_sum(matrix):
+    return [sum(e) for e in matrix]
+    
+Question 7
+
+Write a function transpose which takes in a matrix and transposes it. Basically, this converts a m x n matrix into a n x m matrix. Note that your function should be returning the original matrix.
+
+
+Ans:
+
+def transpose(matrix):
+    matrix[:] = [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+    return matrix
+### DO NOT MODIFY THIS ###
+matrix1 = [[ 1, 2, 3], [4, 5, 6], [7, 8, 9]]
+matrix2 = [[ 1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
+matrix3 = [[1, 2, 3]]
+
+Question 8
+
+Sort the list of integers [5,7,4,9,8,5,6,3] into ascending order on paper. Show how the contents of the list evolves in each step. (This question is meant to ensure that you have a high-level understanding of the common sort algorithms. You are not required to write any code.)
+
+
+Ans:
+
+"""Insertion sort (see mission)"""
+"""Your Answer Here"""
+1. Iterate from list[1] to list[n](from 7 to 3 in this case)
+2. Compare the current element to its predecessor, the element before.
+3. If the current element is smaller than the predecessor,compare it to the elements before. 
+   Move the greater elements one position up to make space for the swapped element.
+Let us loop for i = 7 (second element of the array) to 3 (last element of the array)
+i = 1. Since 7 is bigger than 5, nothing moves.
+5,7,4,9,8,5,6,3
+i = 2. 4 is smaller than 7 and hence move in front of 5 and 7.
+4,5,7,9,8,5,6,3
+This will continue the list is sorted.
+"""Selection sort (see lecture)"""
+"""Your Answer Here"""
+The selection sort algorithm sorts a list by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. 
+The algorithm maintains two subarrays in a given list.
+Traverse through all the elements, set i as the minimum index. for j in the remaining unsorted list, we check if the minimun index of list is more than A[j]. 
+Swap the found minimum element with the first element and continue sorting.
+"""Bubble sort (see recitation)"""
+"""Your Answer Here"""
+Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.
+Traverse through the whole length of the list.
+Last i elements are already in place.
+Traverse the list from 0 to n-i-1
+Swap if the element found is greater than the next element
+"""Merge sort (see lecture)"""
+"""Your Answer Here"""
+It divides the input list into two halves, calls itself for the two halves, and then merges the two sorted halves. 
+The merge() function is used for merging two halves. 
+1. If the length of list is more than 1, find the mid of the list.
+2. Divide the list elements into two halves.
+3. Sort the first half and second half separately.
+4. Copy the data to temp list L[] and R[]
+5. Check if any element was left.
+
+
+Question 9
+
+You are given a list of students in the following form (name, letter grades, score).
+For example,
+students = [
+('tiffany', 'A', 15),
+('jane', 'B', 10),
+('ben', 'C', 8),
+('simon', 'A', 21),
+('eugene', 'A', 21),
+('john', 'A', 15),
+('jimmy', 'F', 1),
+('charles', 'C', 9),
+('freddy', 'D', 4),
+('dave', 'B', 12)]
+The functions that you write for this question should work with any arbitrary list of students and not just for this sample list. Write a function mode_score that takes a list of students and returns a list of the mode scores. If there is only one score with the highest frequency, then this list would only have one element.
+For example:
+>>> mode_score(students)
+[15, 21]
+
+Ans:
+
+def mode_score(students):
+# using list comprehension to get scores
+    res = [lis[2] for lis in students]
+    return mode(res)
+        
+def mode(lst):
+    frequency = {}
+    for number in lst:
+        frequency.setdefault(number,0)
+        frequency[number]+= 1
+    highestFrequency = max(frequency.values())
+    highestFreqLst = []
+    for number, freq in frequency.items():
+        if freq == highestFrequency:
+            highestFreqLst.append(number)
+    return highestFreqLst
+### DO NOT MODIFY THIS ###
+students = [('tiffany', 'A', 15), 
+            ('jane', 'B', 10),
+            ('ben', 'C', 8), 
+            ('simon', 'A', 21), 
+            ('eugene', 'A', 21), 
+            ('john', 'A', 15), 
+            ('jimmy', 'F', 1), 
+            ('charles', 'C', 9), 
+            ('freddy', 'D', 4), 
+            ('dave', 'B', 12)]
+
+
+Question 10
+
+Write a function top_k that takes a list of students and an integer k and returns a list of the names of the k students with the highest scores in alphabetical order. If there are students in the range (k + 1; k + i) who have the same score as the kth student, include them in the list as well.
+For example:
+>>> top_k(students, 5)
+[('eugene', 'A', 21), ('simon', 'A', 21), ('john', 'A', 15), ('tiffany', 'A', 15), ('dave', 'B', 12)]
+>>> top_k(students, 3)
+[('eugene', 'A', 21), ('simon', 'A', 21), ('john', 'A', 15), ('tiffany', 'A', 15)]
+
+
+(i.e. students are sorted in descending order of scores, students having the same score is sorted in alphabetical order)
+
+
+Ans:
+
+def top_k(students, k):
+    toptobottom = sorted(sorted(students, key = lambda x : x[0]), key = lambda x : x[2], reverse = True)  
+    length = len(toptobottom)
+    if k >= 0 and k < length:
+        result = toptobottom[:k]
+        i = k
+    else:
+        result = toptobottom
+        i = 0
+        k = 1
+    while i < length and toptobottom[i][2] == toptobottom[k-1][2]:
+        result.append(toptobottom[i])
+        i += 1
+    return result
+### DO NOT MODIFY THIS ###
+students = [('tiffany', 'A', 15), 
+            ('jane', 'B', 10),
+            ('ben', 'C', 8), 
+            ('eugene', 'A', 21),
+            ('simon', 'A', 21), 
+            ('john', 'A', 15), 
+            ('jimmy', 'F', 1), 
+            ('charles', 'C', 9), 
+            ('freddy', 'D', 4), 
+            ('dave', 'B', 12)]
