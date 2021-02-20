@@ -1,0 +1,248 @@
+Question 1: Functions with exceptions
+
+Write a higher-order function exception_function which will return a function with exceptions. exception_function should take in a function f(x), an integer input, and an integer output, and return another function g(x). The output of g(x) should be the same as f(x), except that when x is the same as the integer input, the output will be returned.
+
+For example, given that we have a function sqrt which returns the square root of the argument. Using new_sqrt = exception_function(sqrt, 7, 2) we obtain new_sqrt, which behaves similarly to sqrt except for new_sqrt(7), where the value of 2 will be returned.
+
+Ans:
+
+
+from math import *
+def exception_function(f, rejected_input, new_output):
+    def inner_function(x):
+        if x==rejected_input:
+            return new_output
+        else:
+            return f(x)
+    return inner_function
+#################
+# DO NOT REMOVE #
+#################
+new_sqrt = exception_function(sqrt, 7, 2)
+
+
+Question 2: Using Higher Order Functions
+
+Write a function usually_double which doubles its argument. Using the functions usually_double and exception_function, create a function new_double, which returns double the argument except when given the argument 4, 7, and 11, in which it returns the value 0.
+
+Remember how exception_function works: Given that we have a function sqrt which returns the square root of the argument. Using new_sqrt = exception_function(sqrt, 7, 2) we obtain new_sqrt, which behaves similarly to sqrt except when called new_sqrt(7), where the value of 2 will be returned.
+
+Ans:
+
+def usually_double(x):
+    return x * 2
+def new_double(x):
+    if x == 4:
+        return 0
+    elif x == 7:
+        return 0
+    elif x == 11:
+        return 0
+    else:
+        return usually_double(x)
+    
+    
+Question 3
+
+Compute the space complexity for the Towers of Hanoi code in the lecture. The code is given here:
+
+def move_tower(size, src, dest, aux):
+    if size==1:
+        print_move(src, dest)
+    else:
+        move_tower(size-1, src, aux, dest)
+        print_move(src, dest)
+        move_tower(size-1, aux, dest, src)
+ 
+def print_move(src, dest): 
+    print("move top disc from ", src, " to ", dest)
+    
+Ans:
+
+O(n)
+
+Question 4
+
+Compute the time complexity for the Towers of Hanoi code in the lecture. The code is given here:
+
+def move_tower(size, src, dest, aux):
+    if size==1:
+        print_move(src, dest)
+    else:
+        move_tower(size-1, src, aux, dest)
+        print_move(src, dest)
+        move_tower(size-1, aux, dest, src)
+ 
+def print_move(src, dest): 
+    print("move top disc from ", src, " to ", dest)
+
+
+Ans:
+
+O(2^n)
+
+Question 5
+
+What is the simplified big-O notation for the expression below?
+
+O( logbase2(20*n) )
+
+Ans:
+
+O( log(n) )
+
+Question 6
+
+What is the simplified big-O notation for the expression below?
+
+O( n * sqrt(n) )
+
+Ans:
+
+O(n * sqrt(n))
+
+Question 7
+
+What is the simplified big-O notation for the expression below?
+
+O( n! + 8*n^2 )
+
+Ans:
+
+O(n!)
+
+Question 8
+
+What is the simplified big-O notation for the expression below?
+
+O( 3^n + ln(n) )
+
+Ans:
+
+O(3 ^ n)
+
+Question 9
+
+What is the simplified big-O notation for the expression below?
+
+O( 5*n^4 + 2*n^2 − n )
+
+Ans:
+
+O(n^4)
+
+Question 10
+
+What is the space complexity of foo1?
+
+def foo1(n):
+    counter = 2
+    while counter < n:
+        if n % counter == 0:
+            return True
+        counter = counter + 1
+    return False
+
+Ans:
+
+O(1)
+
+Question 11
+
+What are the time complexity of foo1?
+
+def foo1(n):
+    counter = 2
+    while counter < n:
+        if n % counter == 0:
+            return True
+        counter = counter + 1
+    return False
+
+
+Ans:
+
+O(n)
+
+Question 12
+
+What is the space complexity of foo2?
+
+def foo2(n):
+    for i in range(2, n//2+1):
+        if n % i == 0:
+            return True
+    return False
+
+
+Ans:
+
+O(1)
+
+Question 13
+
+What is the time complexity of foo2?
+
+def foo2(n):
+    for i in range(2, n//2+1):
+        if n % i == 0:
+            return True
+    return False
+    
+Ans:
+
+O(n)
+
+Question 14
+
+Can you write a code that is better than foo1 and foo2? (They do the same thing)
+
+def foo2(n):
+    for i in range(2, n//2+1):
+        if n % i == 0:
+            return True
+    return False
+    
+Ans:
+
+
+def foo3(n):
+    for i in range(2, n//2+1):
+        if n % i == 0:
+            return True
+    return False
+#Time complexity: O()
+
+
+Question 15: Operation generator
+
+Consider the following functions:
+
+def make_multiplier(scaling_factor):
+    return lambda x: mul(x, scaling_factor)
+
+def make_exponentiator(exponent):
+    return lambda x: pow(x, exponent)
+mul takes two variables x , y and returns x * y. pow takes two variables x , y and returns x ^ y. Notice that these two functions are quite similar. We could abstract out the commonality into an even more general function make_generator such that we could then just write:
+
+make_multiplier = make_generator(mul)
+make_exponentiater = make_generator(pow)
+Write the function make_generator. If you have seen this question before, try it out without referring to your notes. mul and pow have been defined for you.
+
+Ans:
+
+
+def make_generator(op):
+    def make_operation(fixed_value):
+        return lambda x: op(x, fixed_value)
+    return make_operation
+    
+#################
+# DO NOT REMOVE #
+#################
+def mul(x,y):
+    return x*y
+def pow(x,y):
+    return x**y
+make_multiplier = make_generator(mul)
+make_exponentiator = make_generator(pow)
