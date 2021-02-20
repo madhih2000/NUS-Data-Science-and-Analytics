@@ -1,0 +1,66 @@
+Question 1
+
+Here is the problematic implementation of function insert(lst, idx, elem) in the write up. We mentioned in the pdf that the problem occurs because list slicing creates new copies instead of modifying the original list. How would you correct the code?
+
+Note: The function should not return a value.
+
+Ans:
+
+def insert(lst, idx, elem):
+    lst[:] = lst[:idx] + [elem] + lst[idx:]
+    
+# Do not modify the following lines
+list1 = [0, 1, 2, 3, 4, 6, 7]
+insert(list1, 5, 5)
+list2 = ['0', '1', '0']
+insert(list2, 0, '1')
+
+
+Question 2
+
+Suppose we want to write a function appendn(lst, n, elem) that appends n elems to lst. The function is required to modify the original list and return None. What's the problem with the implementation below? How would you fix the code?
+
+
+Ans:
+
+def appendn(lst, n, elem):
+    for i in range(n):
+        lst.append(elem)
+# Do not modify the following lines        
+list1 = ['w', 'o', 'o', 'h']
+appendn(list1, 3, 'o')
+list2 = []
+appendn(list2, 10, 0)
+
+
+Question 3
+
+The code below is an implementation of function modify_last(tup, elem) that returns a tuple which is the same as tup only with the last element replaced by elem. The code has an error that causes it to be unable to run.
+Paste the code into IDLE, run it and see the error message. Modify it so that it passes all test cases below.
+
+
+Ans:
+
+def modify_last(tup, elem):
+    if len(tup) == 0:
+        return tup
+    else:
+        tup = list(tup)
+        tup[-1] = elem
+        tup = tuple(tup)
+    return tup
+
+
+Question 4
+
+In a program, bugs don't necessarily cause errors. There can be logical errors that don't terminate the program but generate wrong output.
+
+The following is an implementation of common(lst1, lst2) that takes in two lists of strings and return a list of common strings in the two lists. Paste the code to IDLE and test against the given test cases. Are the error messages the same for all cases? Where is the bug? Fix the code until it passes all test cases.
+
+Hint: The function has more than one bug. You may assume that the words in each list are unique.
+
+Ans:
+
+def common(lst1, lst2):
+    result = list(set(lst1).intersection(lst2))
+    return result
