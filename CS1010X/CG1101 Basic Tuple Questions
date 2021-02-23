@@ -1,0 +1,117 @@
+Question 1: Three Integers
+
+Implement a function get_hundredth(a, b, c) that takes in 3 positive integers as arguments and returns a tuple of digits at the respective hundredth position.
+
+If a given integer is less than 100, its hundredth position can be viewed as 0. If the input is invalid, return None for that integer.
+
+Ans:
+
+
+def get_hundredth(a, b, c):
+    def hundreds(x):
+        try:
+            return (x // 100) % 10 if (isinstance(x, int) and x > 0) else None
+        except TypeError:
+            return None
+    return tuple(map(hundreds, (a,b,c)))
+    
+    
+Question 2: Standard Deviation
+
+Implement a function def deviation(real_numbers) that computes the standard deviation of n real numbers. It takes in a tuple of n real numbers as an input.
+
+The standard deviation s is computed according to the following formula:
+
+
+The variable x̄ is the average of n input values x1 through xn.
+
+You may assume that 0 < n < 10. Check the test cases for input and output format. Your output should be in two-decimal places.
+
+Ans:
+
+def deviation(real_numbers):
+    sum = 0
+    SUM = 0
+    for i in real_numbers:
+        sum += i
+    mean = sum /len(real_numbers)
+    for i in real_numbers:
+        SUM +=(i-mean)**2
+    stdeV = (SUM/(len(real_numbers)))**0.5
+    return round(stdeV, 2)
+    
+   
+Question 3: Elevator
+
+Suppose you are to operate two elevators. Implement a function operate_elevator that reads two tuples of operation instructions and moves elevators according to the instructions.
+
+The two elevators are both initially positioned at level 1 and it take 2 seconds for an elevator to move one level up or down. Each tuple operates on one elevator only and contains 3 integers, e.g. (1, 3, 6)
+
+The meaning of each integer in the above instruction is as follows:
+First number (elevator number, either 1 or 2) indicates one of the two elevators to operate on.
+
+Second number (from level) indicates which level a passenger presses the button of that elevator. The elevator would have to travel from where it currently is to that level to pick up that person. In case that a passenger happens to be at the same level where an elevator is currently at, it is natural that the elevator does not need to move up/down in order to pick up that passenger.
+
+Third number (to level) indicates which level a passenger wants to go. You can assume that the from level is always different from to level and therefore, no input validation is needed.
+For example, let’s assume that elevator 1 is currently at level 1 and the first instruction is 1 3 6. Hence elevator 1 has to move from level 1 to level 3 to pick up the passenger first and then moves to level 6 where the passenger will alight. In brief, elevator 1 takes (2+3)*2 seconds to finish movement and ends at level 6 (an elevator will stop at to level and never move without a further instruction).
+
+As another example, assume that the second instruction is 2 6 2 and elevator 2 is currently at level 1. Hence elevator 2 will move upward to level 6 to pick up a passenger first and then move down to level 2 to let the passenger alight. In total, it takes (5+4)*2 seconds to finish movement and stops at level 2.
+
+Your program is to read two instructions one by one and print out the time taken for each elevator to move and the final position of each elevator. Take note of the case that two instructions may operate on the same elevator.
+
+Define the elevator speed (2 seconds per level) as a constant in your program.
+
+The output should be a tuple of tuples with the following format (<elevator_num>, <time_taken>, <final_floor>), with the first tuple for elevator 1 and the second tuple for elevator 2.
+
+Ans:
+
+ELEVATOR_SPEED = 2
+def operate_elevator(t1, t2):
+    pickup_distance_1 = t1[1] - 1
+    dropoff_distance_1 = t1[2] - t1[1]
+    total_distance_1 = abs(pickup_distance_1) + abs(dropoff_distance_1)
+    total_time_1 = total_distance_1 * ELEVATOR_SPEED
+    
+    pickup_distance_2 = t2[1] - 1
+    dropoff_distance_2 = t2[2] - t2[1]
+    total_distance_2 = abs(pickup_distance_2) + abs(dropoff_distance_2)
+    total_time_2 = total_distance_2 * ELEVATOR_SPEED
+    if t1[0] == 1 and t2[0] == 2:
+        return(((t1[0],total_time_1,t1[2]), (t2[0], total_time_2, t2[2])))
+    elif t1[0] == 2 and t2[0] == 1:
+        return(((t2[0],total_time_2,t2[2]), (t1[0], total_time_1, t1[2])))
+    elif t1[0] == 1 and t2[0] == 1:
+        pickup_distance_2 = abs(t2[1]) - abs(t1[2])
+        dropoff_distance_2 = t2[2] - t2[1]
+        total_distance_2 = abs(pickup_distance_2) + abs(dropoff_distance_2)
+        total_time_2 = total_distance_2 * ELEVATOR_SPEED
+        total_time = total_time_1 + total_time_2
+        return(((t2[0],total_time,t2[2]), (2, 0, 1)))
+    elif t1[0] == 2 and t2[0] == 2:
+        pickup_distance_2 = abs(t2[1]) - abs(t1[2])
+        dropoff_distance_2 = t2[2] - t2[1]
+        total_distance_2 = abs(pickup_distance_2) + abs(dropoff_distance_2)
+        total_time_2 = total_distance_2 * ELEVATOR_SPEED
+        total_time = total_time_1 + total_time_2
+        return(((1, 0, 1), (t2[0],total_time,t2[2])))
+ 
+Question 4: Pascal Triangle
+
+Implement a function pascal(n) that takes a positive integer number n and returns a Pascal's triangle with that number of rows represented by a tuple. You should use recursion to solve this problem.
+
+
+
+Above picture is extracted from Wikipedia where you may find more information about Pascal's triangle.
+
+Ans:
+
+
+def pascal(n):
+    if n <= 0:
+        return ()
+    elif n == 1:
+        return ((1,),)
+    else:
+        res = pascal(n - 1) # recursive call
+        return (*res, (1, *[n + i for n, i in zip(res[-1], res[-1][1:])], 1))  
+    
