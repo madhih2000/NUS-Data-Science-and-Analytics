@@ -1,0 +1,110 @@
+Question 1: Easy Sudoku
+
+Sudoku is a logic-based, combinatorial number-placement puzzle where the objective is to fill in a 9x9 grid.The rules of the game are:
+Each column contains the digits from 1 to 9 only one time each.
+Each row contains the digits from 1 to 9 only one time each.
+Each 3x3 boxes contains the digits from 1 to 9 only one time each.
+In this problem, you are given a partially completed grid in a tuple of tuples as follows. We will use this data for all test cases.
+
+
+In this problem, you are given a partially completed grid in a tuple of tuples as follows. We will use this data for all test cases.
+5 3 4  6 7 8  9 1 2
+6 0 2  1 9 0  3 4 0
+1 9 8  3 4 2  0 6 7
+
+8 5 9  7 6 1  4 2 3
+4 2 0  8 5 3  7 9 1
+7 1 3  9 2 4  8 5 6
+
+9 6 1  0 3 7  2 8 4
+2 8 7  4 1 9  6 0 5
+3 4 5  2 8 6  1 7 9
+
+To simplify your task, we will dismiss the last rule specified above. In our simplified Sudoku, we will only consider the following two rules:
+  1.Each column contains digits from 1 to 9 only one time each AND
+  2.Each row contains digits from 1 to 9 only one time each.
+In the provided grid, the incomplete slots are represented by 0. Write a program that accepts three integer inputs x y n, determine if value n at coordinate (x, y) will violate the two rules specified above or not. x is the line index starting from 1 whereby line 1 (the first line) is the topmost line; y is the column index starting from 1 whereby column 1 (the first column) is the leftmost column. Your program should return "No violation" if no rule is violated or return "Violation" if either rule is violated.
+
+For example if the input is 2 2 7, you should output "No violation" because putting value 7 in slot (2, 2) still ensures that each row and column only contains 1 to 9 only once. However if the input is 2 6 8, you should output "Violation" because putting value 8 in slot (2, 6) would result in digit 8 occurring twice on the 6th column.
+
+You may assume that (x, y) will always point to an undetermined slot (i.e., with value 0 in the grid).
+
+The grid and skeleton program are provided below.
+
+Ans:
+
+SIZE = 9
+
+board = ((5, 3, 4, 6, 7, 8, 9, 1, 2),
+(6, 0, 2, 1, 9, 0, 3, 4, 0),
+(1, 9, 8, 3, 4, 2, 0, 6, 7),
+(8, 5, 9, 7, 6, 1, 4, 2, 3),
+(4, 2, 0, 8, 5, 3, 7, 9, 1),
+(7, 1, 3, 9, 2, 4, 8, 5, 6),
+(9, 6, 1, 0, 3, 7, 2, 8, 4),
+(2, 8, 7, 4, 1, 9, 6, 0, 5),
+(3, 4, 5, 2, 8, 6, 1, 7, 9))
+
+def easy_sudoku(x, y, n):
+    x_index = x -1 #2
+    y_index = y -1 #2
+    ROW_VIOLATION = False
+    COL_VIOLATION = False
+    for i in range(0,9):
+        if board[x_index][i]==n:
+            ROW_VIOLATION=True
+        if board[i][y_index]==n:
+            COL_VIOLATION=True
+    if ROW_VIOLATION or COL_VIOLATION:
+        return "Violation"
+    else:
+        return "No violation"
+        
+        
+Question 2: Car
+
+Implement a function car that reads in data about your car and print out some statistical information. The input data includes:
+Initial odometer value: the initial value of odometer (double type) before making any trip today. The odometer value on the car displays up to a maximum value of 999.9, after which it starts from 000.0 again. (An odometer is an instrument in a car for measuring the distance travelled.)
+Distance per trip: A tuple of real numbers represented the distance for each trip.
+You may assume that the odometer value and distance per trip has at most one decimal place.
+
+After all above information are read, your program is to compute the final odometer value, the total number of trips, the average distance of all trips today, and the maximum difference in distance between two consecutive trips. The program then displays the outputs as shown in the sample runs below. The tuple representation is as follows:
+(final_odometer_value, total_number_of_trips, avg_dist_per_trip, max_diff_between_two_consecutive_trips)
+
+For example, in the sample run #1 below, the difference in distance between trip 1 and trip 2 is 4.8, while the difference in distance between trip 2 and trip 3 is 10.8. Hence the maximum difference is 10.8.
+
+Study the sample runs carefully so as to ensure that you have understood the question clearly. You should correct your output of floating point numbers to 1 decimal place.
+
+
+Ans:
+
+
+def car(init_odometer,distances):
+    total_trips = len(distances)
+    total_dist = sum([i for i in distances])
+    final_odometer = (init_odometer+ total_dist )%1000
+    avg_dist = total_dist / total_trips if total_trips!=0 else 0.0
+    
+    max_dist = max([abs(distances[i]-distances[i+1]) for i in range(total_trips-1)]) if total_trips>1 else 0.0
+    return (round(final_odometer,1),total_trips,round(avg_dist,1),round(max_dist,1))
+
+
+Question 3: Ordered Matrix
+
+Implement a function check_matrix(matrix) that reads in an N*M matrix implemented using nested tuples, checks whether all values in this matrix, according to row-major order, are in non-decreasing order. If the matrix is in the right order, return True, else, return False.
+Matrix values in sample run #1 below can be read as -1, 2, 3, 4, 5, 6, which is in non-decreasing order.
+Matrix values in sample run #2 below can be read as -1, 2, 4, 3, 5, 6, which is not in non-decreasing order.
+You may assume that you will not be given an empty matrix.
+
+Ans:
+
+def check_matrix(matrix):
+    j = ()
+    for i in matrix:
+        j += i
+    
+    print(j)
+    if tuple(sorted(j)) == j:
+        return True
+    else:
+        return False
