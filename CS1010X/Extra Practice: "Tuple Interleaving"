@@ -1,0 +1,66 @@
+Question 1: Interleaving tuple
+
+Define a function interleaved_tuple that takes two arguments, tuple_a and tuple_b that returns a tuple with the values of tuple_a and tuple_b interleaved.
+
+For example:
+
+tuple_a = (1,3,5,7,9)
+tuple_b = (2,4,6,8,10)
+interleaved_tuple(tuple_a,tuple_b)
+will return you (1,2,3,4,5,6,7,8,9,10). You may assumed both tuples are of equal length.
+
+Ans:
+
+def interleaved_tuple(tuple_a, tuple_b):
+    l1 = list(tuple_a)
+    l2 = list(tuple_b)
+    l3 = [val for pair in zip(l1, l2) for val in pair]
+    return tuple(l3)
+
+
+Question 2: Interleaving tuple 2
+
+Recall that in the original interleaved_tuple, we are expected to assume that both tuples are equal in length. What if they aren't?
+
+Now lets define a function interleaved_tuple_adv that takes two arguments, tuple_a and tuple_b and returns a tuple with interleaved values. If any of the tuples runs out of values, just assign the rest of the values of the other tuple and return.
+
+For example:
+
+a = (1,3,5)
+b = (2,4,6,8,10,12)
+interleaved_tuple_adv(a,b)
+will return (1,2,3,4,5,6,8,10,12)
+
+Ans:
+
+import itertools
+
+def interleaved_tuple_adv(tuple_a, tuple_b):
+    a = list(tuple_a)
+    b = list(tuple_b)
+    c = [x for x in itertools.chain(*itertools.zip_longest(a, b)) if x is not None]
+    return tuple(c)
+    
+Question 3: Interleaving tuple 3
+
+Now that you have completed the last two question, you should be pretty comfortable with interleaving. Suppose now we want to be able to control the rate at which we try to interleave values.
+
+Define a function interleaved_tuple_two that takes two arguments, tuple_a and tuple_b that returns a tuple of interleaved values which interleave one value of tuple_b for every two values of tuple_a.
+For example:
+
+a = (1,3,5,7,9,11,13,15)
+b = (2,4,6,8)
+interleaved_tuple_two(a, b)
+will return (1,3,2,5,7,4,9,11,6,13,15,8). You may assume that the tuple_a will always be twice the length of tuple_b.
+
+Ans:
+
+def interleaved_tuple_two(tuple_a, tuple_b):
+    a = list(tuple_a)
+    b = list(tuple_b)
+    i = 2
+    while i < len(a):
+        for j in b:
+            a.insert(i, j)
+            i += 3
+    return tuple(a)
