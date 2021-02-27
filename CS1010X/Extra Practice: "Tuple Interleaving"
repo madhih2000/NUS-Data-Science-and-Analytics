@@ -64,3 +64,41 @@ def interleaved_tuple_two(tuple_a, tuple_b):
             a.insert(i, j)
             i += 3
     return tuple(a)
+
+
+Question 4: Interleaving tuple 4
+
+Now suppose that we want to be very picky on which values we accept in our new tuple.
+
+Define a function interleaved_tuple_picky that takes three arguments, tuple_a, tuple_b and predicate and return a tuple of values either from tuple_a or tuple_b. For all values x from tuple_a, if predicate(x) is True, we will add x to the final tuple, else we will add the corresponding value from tuple_b
+
+For example:
+a = (1, 2, 3, 4, 5)
+b = (9, 11, 13, 15, 17)
+c = (2, 2, 2, 2, 2)
+def is_odd(x):
+    return x % 2 == 1
+
+interleaved_tuple_picky(a, b, is_odd) will return (1, 11, 3, 15, 5)
+interleaved_tuple_picky(c, b, is_odd) will return (9, 11, 13, 15, 17)
+
+Note you may assume both tuples are of equal length.
+
+Ans:
+
+def is_odd(x):
+    return x % 2 == 1
+
+def interleaved_tuple_picky(tuple_a, tuple_b, predicate):
+    a = list(tuple_a)
+    b = list(tuple_b)
+    c = []
+    i = 0
+    while i <= len(a) - 1:    
+        if predicate(a[i]):
+            c.append(a[i])
+            i += 1
+        else:
+            c.append(b[i])
+            i += 1
+    return tuple(c)
