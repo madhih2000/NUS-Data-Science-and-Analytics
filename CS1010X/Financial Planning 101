@@ -1,0 +1,47 @@
+Question 1: Compound interest
+
+Compound interest is interest added to the principal of a deposit or loan so that the added interest also earns interest from then on. For this training, we will assume that interest is compounded annually. This means that interest is earned each year and added back into the deposit. For example, at the start of year zero, we deposit $100 at 10% interest. At the start of year 1, we will have $100 x 1.1 = $110. In year 2, we have $110 x 1.1 = $121.
+Notice you have earned an additional $1 interest on the first $10 interest earned.
+
+Define an function deposit(principal, interest, duration) that outputs how much you will receive (including principal) at maturity for such a deposit. interest will be the effective annual rate of interest in decimal and duration will be in years.
+
+Definitions:
+Principal refers to the initial amount you give.
+Effective annual rate of interest here is just the annual interest rate (how much interest you earn in a year) since interest is compounded yearly. Being in decimal means a 10% interest is written as 0.1.
+At maturity means at the end of the duration of deposit.
+
+Ans:
+
+def deposit(principal, interest, duration):
+    Amount = principal * ((1 + interest) ** duration)
+    return Amount
+
+
+Question 2: Annuity
+
+An annuity is a series of payments made at fixed intervals of time. If you buy an annuity from a bank, you will pay a principal sum upfront, and then receive monthly or yearly payouts deducted from the principal. Your remaining principal will continue to earn compound interest in the meantime. Think of it as the opposite of a loan. Your task is to calculate how much you have left after receiving a certain number of payouts (or for the loan, how much you still owe after paying a certain number of installments).
+
+Define an function balance(principal, interest, payout, duration) that calculates the balance of an annuity right after receiving a certain number of payouts. interest is the monthly interest rate, payout is monthly and duration is just the number of payouts already received. Assume the first payout is made after 1 month.
+
+Hint: Consider the time interval in months instead of years. Your code should be similar to the previous one.
+
+Ans:
+
+def balance(principal, interest, payout, duration):
+    i = 1
+    while i <= duration:
+        Amount = principal * (1 + interest)
+        Amount = Amount - payout
+        principal = Amount
+        i += 1
+    return Amount
+    
+    
+Question 3: Deferred Annuity
+
+A deferred annuity is an annuity which delays its payouts. This means that the payouts do not start until after a certain duration. Notice that a deferred annuity is just a deposit at the start, followed by an annuity. Your task is to define a Higher-order Function that returns a function that takes in a given interest rate and outputs the amount of money that is left in a deferred annuity. You may assume that deposit and balance have been defined for you.
+
+Define a function new_balance(principal, gap, payout, duration) that returns a single-parameter function which takes in a monthly interest rate and outputs the balance in a deferred annuity. gap is the duration in months before the first payment, payout is monthly and duration is just the total number of payouts.
+
+Ans:
+
