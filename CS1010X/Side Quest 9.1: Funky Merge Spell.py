@@ -115,9 +115,11 @@ def merge_sort(lst, k, field):
         return lst
     lst = list(map(lambda l: merge_sort(l,k,field), divide_k(lst, k)))
     return merge(lst,field)
+
 def divide_k(lst, k):
     division = len(lst) / k
     return [lst[round(division*i):round(division*(i+1))] for i in range(k)]
+
 def merge(lists, field):
     fields = {module_code:0, module_name:1, module_prof:2}
     res = lists[0]
