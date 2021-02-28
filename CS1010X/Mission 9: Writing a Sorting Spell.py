@@ -72,30 +72,22 @@ def search(x, seq):
 # Task 1b #
 ###########
 
+
 def binary_search(x, seq):
-    if not seq:
-        return 0
-    elif x>seq[-1]:
-        return len(seq)
-    elif x<seq[0]:
-        return 0
-
-    mid = len(seq)//2
-
-    if x < seq[mid]:
-        if x>seq[mid-1]:
+    """ Takes in a value x and a sorted sequence seq, and returns the
+    position that x should go to such that the sequence remains sorted.
+    Uses O(lg n) time complexity algorithm."""
+    def searcher(low, high):       
+        if low > high:
+            return low
+        mid = (low + high) // 2
+        if x < seq[mid]:
+            return searcher(low, mid-1)
+        elif x > seq[mid]:
+            return searcher(mid+1, high)
+        elif x == seq[mid]:
             return mid
-        seq = seq[:mid]
-        binary_search(x, seq)
-
-    elif x > seq[mid]:
-        if x<seq[mid+1]:
-            return mid+1
-        seq = seq[mid:]
-        binary_search(x, seq)
-
-    else:
-        return mid
+    return searcher(0, len(seq)-1)
 
 
 
