@@ -1,0 +1,110 @@
+Question 1
+
+A stack is an abstract data type that accepts and returns data in a Last In First Out manner. Data that is added in last will be taken out first. Imagine putting chips into a Pringles can. As you stack chips in the can, the first chip put in ends up at the bottom and the last chip will sit at the top. To take out one chip, you have to take the top most chip.
+
+Suppose we start with an empty stack and put the following numbers into it, from left to right: 4, 3, 2, 1. What value is at the top of the stack?
+
+Ans:
+
+1
+
+Question 2
+
+There are two important operations that a stack must support: push and pop.
+
+To add items to the stack, we push them onto the stack, and to get the top element from the stack, we pop it off the stack.
+
+
+
+Which sequence(s) of push and pop operations will result in the following stack?
+3 <-- top
+2
+1 <-- bottom
+
+Ans:
+
+push 1 push 2 pop push 2 push 3
+
+push 1 push 2 push 3
+
+Question 3: Making the Stack
+
+Now that we understand the behaviour of a stack a little better, we can try to implement it.
+
+A stack can be implemented using a list, where the first element in the list is at the bottom of the stack and the last element is at the top of the stack. For the following questions, we shall assume that stacks are implemented in the manner just mentioned.
+
+Define a constructor make_stack(seq) for a stack that takes in a sequence and returns a stack representation of the sequence where the last element in the sequence is at the top of stack and the first element is the bottom of the stack.
+
+Define another constructor make_empty_stack() that takes no arguments and returns an empty stack. Can you use make_stack here?
+
+In addition, define the following predicate function is_empty_stack(stack) that returns True if the stack is empty and False otherwise.
+
+Ans:
+
+def make_stack(seq):
+    s = make_empty_stack()
+    for i in seq:
+        s.append(i)
+    return s
+
+def make_empty_stack():
+    return []
+
+def is_empty_stack(stack):
+    if not stack:
+        return True
+    else:
+        return False
+
+##########################################
+#       Do not modify test code          #              
+##########################################
+s1 = make_empty_stack()                  #
+s2 = make_stack((2, 4, 5))               #
+s3 = make_stack([3, 5, 7, 8])            #
+                                         #
+is_empty1 = is_empty_stack(s1) #True	 #
+is_empty2 = is_empty_stack(s2) #False	 #
+is_empty3 = is_empty_stack(s3) #False    #
+##########################################
+
+
+Question 4: Stacking like Jenga
+
+Now implement the modifiers push_stack(stack, item) and pop_stack(stack).
+push_stack takes in a stack and an item and pushes the item onto the top of the stack.
+pop_stack takes in a stack, removes the top item of that stack, and returns that top item. If the stack is empty, return None.
+
+Note: Push and pop actions have to modify the stack itself!
+
+Ans:
+
+def push_stack(stack, item):
+    # pushes an item onto the stack, returns the stack
+    stack.append(item)
+    return stack # your code here
+
+def pop_stack(stack):
+    # removes the top item of the stack, returns that item. If the stack is empty, it should return None.
+    if not stack:
+        return None
+    else:
+        item = stack.pop()
+    return item
+   
+
+##########################################
+#       Do not modify test code          #              
+##########################################
+s = make_empty_stack()                   #
+first = pop_stack(s) #None               #
+                                         #
+push_stack(s, 1)                         #
+push_stack(s, 2)                         #
+                                         #
+second = pop_stack(s) #2                 #
+third = pop_stack(s)  #1                 #
+push_stack(s, 3)                         #
+fourth = pop_stack(s) #3                 #
+##########################################
+
