@@ -108,3 +108,41 @@ push_stack(s, 3)                         #
 fourth = pop_stack(s) #3                 #
 ##########################################
 
+
+Question 5: Added Functionality
+
+We now have all the functions we actually need to work with stacks. Two additional functions that would be nice are the accessor peek and modifier clear_stack functions.
+
+peek(stack) returns, but does not remove, the top element from a stack. In other words, it behaves like pop(stack) with the exception that the top element is not removed.
+
+clear_stack(stack) modifies the given stack, makes it empty and returns the stack
+
+Define these functions.
+
+Ans:
+
+def peek_stack(stack):
+    # returns but does not remove the top element of the stack. If the stack is empty, it should return None.
+    if len(stack) == 0:
+        return None
+        
+    else:
+        return stack[-1]
+    
+def clear_stack(stack):
+    stack.clear()
+    return stack
+
+##########################################
+#       Do not modify test code          #              
+##########################################
+s1 = make_empty_stack()                  #
+s2 = make_stack((2, 4, 5))               #
+                                         #
+peek1 = peek_stack(s1) #None             #
+peek2 = peek_stack(s2) #5                #
+                                         #
+clear_stack(s2)                          #
+peek3 = peek_stack(s2) #None             #
+##########################################
+
