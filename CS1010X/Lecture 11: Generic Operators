@@ -1,0 +1,90 @@
+Question 1
+
+Which of the following can be used as dictionary keys?
+
+Ans:
+
+2.56
+('single',)
+8
+
+Question 2
+
+Consider this assignment statement:
+d = {'a': {'s':2.5, 't':3}, 'c': 4, 'b': 5}
+
+Select the expression(s) that evaluate to True.
+
+
+Ans:
+
+'b' in d
+
+Question 3
+
+Given the statement d = {'a': 1, 'b': 2}, fill in the missing line of code that makes d have the value {'a': 1, 'c': 3, 'b': 2}
+
+Note: Assigning d directly to {'a': 1, 'c': 3, 'b': 2} is NOT a valid answer.
+
+Ans:
+
+# missing line here
+d.update(c = 3)
+
+Question 4
+
+Why do we want to introduce generic operators for a data type that has multiple representations?
+
+Ans:
+
+To resolve nanme conflicts among different representations.
+To shield user from managing complexities.
+
+Question 5
+
+Which of the following is NOT a problem of dispatch on type method?
+
+Ans:
+
+User needs to do tedious type checking.
+
+Question 6
+
+How does data directed programming resolve name conflicts?
+
+Ans:
+
+The names are still identical but the functions live in different scopes.
+
+
+Question 7
+
+Write a function increase_by_one which takes in a dictionary and modifies the dictionary by increasing all values in it by 1. The function should remain all keys unchanged and finally return the modified dictionary. If the dictionary is empty, return it without changing. You may assume that all values in dictionary are either numbers (may be float or int) or dictionaries.
+
+Note: The dictionary may contain dictionaries.
+
+Ans:
+
+def increase_by_one(d):
+  for key in d:
+    if type(d[key])==dict:
+      d[key] = increase_by_one(d[key])
+    else:
+      d[key] += 1
+  return d
+
+
+Question 8
+
+Write a function sum_all takes arbitrary number of integers and returns the sum of all integers passed to it. If nothing is passed to it, return 0.
+
+Hint: If you forgot the form def sum_all(*args) you may want to check out the lecture notes.
+
+Ans:
+
+def sum_all(*args):
+    sum = 0
+    for i in args:
+            sum = sum + i
+    return sum
+
