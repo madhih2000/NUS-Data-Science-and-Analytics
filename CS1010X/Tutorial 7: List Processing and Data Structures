@@ -166,3 +166,29 @@ def accumulate_n(op, init, sequences):
                + accumulate_n(op, init, list((map(lambda x: x[1:], sequences)))))
 
 
+Question 5: English! Part 2
+
+Ignoring punctuation, an English sentence is a collection of words, and each word is a collection of letters. Suppose we would like to create a list representation of an english sentence. We could represent each word as a list of letters (for example, the word 'cat' would be represented as ['c', 'a', 't']). A sentence would then be a list of such word representations. Some examples:
+
+"CS1010S Rocks"
+[['C', 'S', '1', '0', '1', '0', 'S'], ['R', 'o', 'c', 'k', 's']]
+
+"Python is cool"
+[['P', 'y', 't', 'h', 'o', 'n'], ['i', 's'], ['c', 'o', 'o', 'l']]
+
+
+Task 2
+Write a function letter_count that takes a sentence and returns a list of lists, where you have one list for each distinct letter in the sentence and each list has two elements.
+
+The first element of the list pair is the letter and the second element is the count for the letter. The order of the list pairs does not matter. What is the order of growth in time and space (in terms of the number of letters in the sentence) of the function that you wrote?
+
+
+Ans:
+
+def letter_count(sentence):
+    l = []
+    for i in sentence:
+        l += i
+    occurences = [[x,l.count(x)] for x in set(l)]
+    return occurences
+    
