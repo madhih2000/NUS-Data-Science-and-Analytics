@@ -192,3 +192,49 @@ def letter_count(sentence):
     occurences = [[x,l.count(x)] for x in set(l)]
     return occurences
     
+Question 6: English! Part 3
+
+Ignoring punctuation, an English sentence is a collection of words, and each word is a collection of letters. Suppose we would like to create a list representation of an english sentence. We could represent each word as a list of letters (for example, the word 'cat' would be represented as ['c', 'a', 't']). A sentence would then be a list of such word representations. Some examples:
+
+"CS1010S Rocks"
+[['C', 'S', '1', '0', '1', '0', 'S'], ['R', 'o', 'c', 'k', 's']]
+
+"Python is cool"
+[['P', 'y', 't', 'h', 'o', 'n'], ['i', 's'], ['c', 'o', 'o', 'l']]
+
+
+
+Task 3
+Write a function most_frequent_letters that takes a sentence representation and returns a list of letters that occur most frequently in the given sentence.
+
+The order of the letters do not matter. If only one such letter exists, then return a list with one element. If the sentence is empty, return an empty list. What is the order of growth in time and space (in terms of the number of letters in the sentence) of the function that you wrote?
+
+Note: letter_count(sentence) and count_sentence(sentence) from previous parts have been defined for you. You may use these functions however you deem fit
+
+
+Ans:
+
+def most_frequent_letters(sentence):
+    l = []
+    for i in sentence:
+        l += i
+    if len(l) == 0:
+        return l
+    else:
+        return mode(l)
+        
+def mode(numlist):
+
+    mylist = numlist
+    dic = {}
+
+    for num in mylist:
+        if num in dic:
+            dic[num] += 1
+        else:
+            dic[num] = 1
+
+    vals = max(dic.values())
+    return [k for k, v in dic.items() if v == vals]
+    
+
