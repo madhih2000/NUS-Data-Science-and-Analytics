@@ -1,0 +1,168 @@
+Question 1: Accumulate_n
+
+The function accumulate_n(op, init, sequences) is similar to accumulate(op, init, seq) except that it takes as its third argument a sequence of sequences of equal length. 
+It applies the accumulation function op to combine all the first elements of the sequences, all the second elements of the sequences, and so on, and returns a sequence of the results. 
+For instance, if s is a sequence containing four sequences, [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]], then the value of accumulate_n(lambda x, y: x+y, 0, s) should be the sequence [22, 26, 30]. 
+Fill the missing expressions T1 and T2 in the following definition of accumulate_n:
+
+def accumulate(op, init, seq):
+    if not seq:
+        return init
+    else:
+        return op(seq[0], accumulate(op, init, seq[1:]))
+        
+   
+and
+
+def accumulate_n(op, init, sequences):
+    if (not sequences) or (not sequences[0]):
+        return type(sequences)()
+    else:
+        return ( [ accumulate(op, init, T1)]
+                + accumulate_n(op, init, T2) )
+                
+
+Note 1: You only need to fill in T1 and T2 in the answers below.
+Note 2: accumulate_n uses both accumulate and accumulate_n.
+Note 3: You might need to use map function for both T1 and T2
+
+
+def accumulate(op, init, seq):
+    if not seq:
+        return init
+    else:
+        return op(seq[0], accumulate(op, init, seq[1:]))
+
+def accumulate_n(op, init, sequences):
+    if (not sequences) or (not sequences[0]):
+        return type(sequences)()
+    else:
+        heads = [s[0] for s in sequences]
+        tails = [s[1:] for s in sequences]
+
+        return ([accumulate(op, init, heads)]
+               + accumulate_n(op, init, tails))
+
+
+Question 2: Matrices! Part 1
+
+Recall that in Tutorial 6, a matrix can be represented in Python by a list of lists (nested lists). For example, m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] represents the following 3 x 3 matrix:
+
+| 1 2 3 |
+| 4 5 6 |
+| 7 8 9 |
+
+Re-define the function col_sum using accumulate_n. The function should still take in a matrix and return a list, where the i-th element in the list is the sum of the elements in the i-th column of the matrix
+
+Note: The correct solution for accumulate_n is defined and provided for you in this question. ...How cool is that? You should use it in your solution!
+
+Ans:
+
+def col_sum(m):
+    return accumulate_n(lambda x,y: x+y, 0, m)
+
+### DO NOT EDIT ANYTHING BEYOND THIS LINE. FOR YOUR REFERENCE ONLY! ###
+
+def accumulate(op, init, seq):
+    if not seq:
+        return init
+    else:
+        return op(seq[0], accumulate(op, init, seq[1:]))
+
+def accumulate_n(op, init, sequences):
+    if (not sequences) or (not sequences[0]):
+        return type(sequences)()
+    else:
+        return ( [accumulate(op, init, list((map(lambda x: x[0], sequences))))]
+               + accumulate_n(op, init, list((map(lambda x: x[1:], sequences)))) )
+
+
+
+Question 3: Matrices! Part 2
+
+Before we proceed, let us recap by defining a function transpose that takes in a matrix and returns a transposed matrix as shown below
+
+| 1 2 3 |          | 1 4 7 |
+| 4 5 6 |    =>    | 2 5 8 |
+| 7 8 9 |          | 3 6 9 |
+
+Guess we're not quite over yet! Now that you have a transpose function, re-define the function row_sum using accumulate_n. The function should still take in a matrix and return a list, where the i-th element is the sum of the elements in the i-th row of the matrix. (Hint: transpose would be very helpful here! You might need to define a function transpose for this question)
+
+
+Ans:
+
+def transpose(m):
+    transposed = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))]
+    return transposed
+
+def row_sum(m):
+    return accumulate_n(lambda x,y: x+y, 0, transpose(m))
+    
+    
+#### DO NOT EDIT ANYTHING BEYOND THIS LINE. FOR YOUR REFERENCE ONLY ####
+
+def accumulate(op, init, seq):
+    if not seq:
+        return init
+    else:
+        return op(seq[0], accumulate(op, init, seq[1:]))
+
+def accumulate_n(op, init, sequences):
+    if (not sequences) or (not sequences[0]):
+        return type(sequences)()
+    else:
+        return ( [accumulate(op, init, list((map(lambda x: x[0], sequences))))]
+               + accumulate_n(op, init, list((map(lambda x: x[1:], sequences)))))
+
+
+
+Question 4: English! Part 1
+
+Ignoring punctuation, an English sentence is a collection of words, and each word is a collection of letters. Suppose we would like to create a list representation of an english sentence. We could represent each word as a list of letters (for example, the word 'cat' would be represented as ['c', 'a', 't']). A sentence would then be a list of such word representations. Some examples:
+
+"CS1010S Rocks"
+[['C', 'S', '1', '0', '1', '0', 'S'], ['R', 'o', 'c', 'k', 's']]
+
+"Python is cool"
+[['P', 'y', 't', 'h', 'o', 'n'], ['i', 's'], ['c', 'o', 'o', 'l']]
+
+
+
+Task 1
+Write a function count_sentence that takes a sentence representation and returns a series list with two elements: the number of words in the sentence, and the number of letters in the sentence.
+
+Assume that spaces count as 1 letter per space, and that there is exactly 1 space between each word (but none at the start or end of the sentence). What is the order of growth in time and space (in terms of the number of letters in the sentence) of the function that you wrote?
+
+
+Note: accumulate and accumulate_n are both defined for your references. You should attempt to solve the question with either functions (or both)
+
+
+Ans:
+
+def count_sentence(sentence):
+    letters = []
+    for i in sentence:
+        letters += i
+    length = len(sentence)
+    space = length - 1
+    let = len(letters) + space
+    return [length,let]
+    
+# Order of growth?: <just type your answer here: >
+
+
+#### DO NOT EDIT ANYTHING BEYOND THIS LINE. IT IS FOR YOUR REFERENCE ONLY!
+def accumulate(op, init, seq):
+    if not seq:
+        return init
+    else:
+        return op(seq[0], accumulate(op, init, seq[1:]))
+
+def accumulate_n(op, init, sequences):
+    if (not sequences) or (not sequences[0]):
+        return type(sequences)()
+    else:
+        return ( [accumulate(op, init, list((map(lambda x: x[0], sequences))))]
+               + accumulate_n(op, init, list((map(lambda x: x[1:], sequences)))))
+
+
