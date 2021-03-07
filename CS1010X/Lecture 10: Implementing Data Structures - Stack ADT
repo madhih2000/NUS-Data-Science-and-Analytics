@@ -146,3 +146,71 @@ clear_stack(s2)                          #
 peek3 = peek_stack(s2) #None             #
 ##########################################
 
+
+Question 6: The postfix expression
+
+Now that we have our own implementation of a stack, we should put it to good use. A stack can be used to calculate the result of mathematical expressions.
+
+In conventional mathematics, we often use infix notation. For this question, we will be using postfix notation. In postfix notation, operators are placed at the back of the operands rather than in the middle. Operators are assumed to be binary operators.
+
+We will use tuples to represent mathematical expressions. For example, the following infix expressions can be expressed in postfix notation as:
+(1, '+', 2) in postfix will be (1, 2, '+')
+((1, '+', 25), '*', 3) in postfix will be (1, 25, '+', 3, '*')
+(3, '*', (1, '+', 2))' in postfix will be (3, 1, 2, '+', '*')
+
+If you have trouble with the 3rd example, imagine infix notation as a binary tree structure where the root is the operator, the left operand is the left subtree and the right operand is the right subtree. The postfix notation can be derived by concatenating the postfix notation of the left subtree with the postfix notation of the right subtree and the root operator. If a subtree is a leaf node, then it's postfix notation is just itself.
+
+You can safely assume the following:
+The operators used are only binary operators: '+', '-', '*', '/'
+All inputs are valid math expressions.
+Expressions for 2 operands and operators in the input are always wrapped in a tuple to ensure there is no ambiguity in execution
+
+Now let's calculate the postfix form expressions. The calculate function takes in a math expression in postfix tuple form and returns the result of the entire expression as an integer (the final result is guaranteed to be an integer).
+
+You can calculate the expression using the following algorithm:
+If the expression only contains an integer, return that integer. Otherwise, maintain a stack.
+Loop through the tuple and push every element to the stack, unless the element is an operator. If the element is an operator, pop the first two elements out of the stack (the first and second elements popped will be the right and left operands respectively), calculate the result and push the result into the stack.
+
+To illustrate, we take the example (1, 2, '+', 3, '*') below (the stack is initially empty):
+  a. take 1, push 1                                         # stack is [1]
+  b. take 2, push 2                                         # stack is [1, 2]
+  c. take '+', pop 2, pop 1, calculate 1 + 2 = 3, push 3    # stack is [3]
+  d. take 3, push 3                                         # stack is [3, 3]
+  e. take '*', pop 3, pop 3, calculate 3 * 3 = 9, push 9    # stack is [9]
+  f. input empty, pop 9, return 9
+
+You may assume that all inputs are valid expressions.
+
+The functions listed below are provided for your usage. You do NOT have to implement it in your answer!
+make_empty_stack()
+make_stack(seq) 
+is_empty_stack(stack) 
+peek_stack(stack)
+push_stack(stack, item)
+pop_stack(stack)
+clear_stack(stack)
+
+
+Ans:
+
+
+def calculate(tup):
+    stack=list()
+    if len(tup)==1 and tup[0] is int:
+        return tup[0]
+    for i in tup:
+        if type(i) is int:
+            stack.append(i)
+        elif i in ["+","-","*","/"]:
+            if i is "+":
+                stack.append(stack[-1]+stack[-2])
+            elif i is "-":
+                stack.append(stack[-2]-stack[-1])
+            elif i is "*":
+                stack.append(stack[-1]*stack[-2])
+            elif i is "/":
+                stack.append(stack[-2]/stack[-1])
+            stack.pop(-2)
+            stack.pop(-2)
+    return int(stack[0])
+
