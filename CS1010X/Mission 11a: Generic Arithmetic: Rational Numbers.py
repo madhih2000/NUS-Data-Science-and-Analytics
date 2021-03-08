@@ -21,8 +21,8 @@
 #   return mul(x, x)
 
 # (a) What are the types of the input and output of the generic square operation?
-# Answer: input: RepOrd
-#         output: Generic-Ord
+# Answer: input: Generic-Num
+#         output: Generic-Num
 
 # (b) Why would we prefer to define square in the above way, rather than:
 # def square(x):
