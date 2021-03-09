@@ -237,4 +237,24 @@ def mode(numlist):
     vals = max(dic.values())
     return [k for k, v in dic.items() if v == vals]
     
+    
+Question 8: A Bomb Game
 
+Suppose now you are invited to play a game called Pass-the-Bomb. In this game, a group of n players will form a circle and the first person will be given a bomb. At each turn, the player with the bomb will pass it to the next player in the clockwise direction. After m turns, the bomb will explode and the player will be removed from the game. The next player in line will be given another bomb and the game will continue.
+
+The simulation below shows the second iteration of a game with n=10 and a m=2 time bomb. The bomb exploded at the 3rd person so play restarts with the bomb given to the 4th player. The bomb will then explode at the 6th player.
+
+Write a function who_wins that will take an integer m and a list of players and return the last m-1 players in the game.
+
+Hint: You can use a queue to help you solve this question. make_queue(), enqueue(q, item), size(q) and dequeue(q) are already defined for you. You may use them as you deem fit.
+
+
+
+def who_wins(m,players):
+    queue=list(players)
+    bomb=0
+    while(len(queue)!= m-1):
+        bomb+=m #bomb goes off at person m
+        bomb%=len(queue)
+        queue.pop(bomb) #eliminate the person
+    return (queue)
