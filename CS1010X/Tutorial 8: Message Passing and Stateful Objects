@@ -102,4 +102,52 @@ def translate(source,destination,string):
     return string
     
 
+Question 7: Translations! Part 2
+
+A Caesar cipher is one of the simplest and most widely known encryption techniques. It is a type of substitution cipher in which each letter in the plaintext is replaced by a letter some fixed number of positions down the alphabet. For example, with a left shift of 3, A would be replaced by D, B would become E, and so on. As illustrated in the following graph:
+
+Create a function caesar_cipher(shift, string) , where shift is the number of positions to shift, and string is the string to encrypt.
+(Hint: use translate in your implementation. The correct implementation of translate is provided for you).
+>>> caesar_cipher(29,"aAbB")
+"dDeE"
+(Alternatively, the ord() and chr() could be useful here. You can read more here: http://docs.python.org/3.3/library/functions.html
+
+Ans:
+
+def caesar_cipher(step, realText):
+	outText = []
+	cryptText = []
+	
+	uppercase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+	lowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+	for eachLetter in realText:
+		if eachLetter in uppercase:
+			index = uppercase.index(eachLetter)
+			crypting = (index + step) % 26
+			cryptText.append(crypting)
+			newLetter = uppercase[crypting]
+			outText.append(newLetter)
+		elif eachLetter in lowercase:
+			index = lowercase.index(eachLetter)
+			crypting = (index + step) % 26
+			cryptText.append(crypting)
+			newLetter = lowercase[crypting]
+			outText.append(newLetter)
+	return listToString(outText)
+
+
+def listToString(s):  
+    
+    # initialize an empty string 
+    str1 = ""  
+    
+    # traverse in the string   
+    for ele in s:  
+        str1 += ele   
+    
+    # return string   
+    return str1  
+
+
 
