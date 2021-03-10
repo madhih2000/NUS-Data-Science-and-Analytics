@@ -1,15 +1,70 @@
 
+Question 1: Widget!
+
+The following code defines a new widget object in message passing style:
+
+def make_widget():
+    stuff = ["empty", "empty", 0]
+    def oplookup(msg,*args):
+        if msg == "insert":
+            place = stuff[2]
+            stuff[place] = args[0]
+            stuff[2] = (place + 1) % 2
+        elif msg == "retrieve":
+            return stuff[stuff[2]]
+        else:
+            raise Exception("widget doesn’t " + msg)
+    return oplookup
+
+widget = make_widget()
+
+a) Describe in simple English how a widget behaves. Your explanation should be comprehensible to a layman who does not understand programming.
+b) Write the code required to insert the following objects into the widget : 1, 2, 3
+c) Suppose we perform a retrieval 3 times. What is returned each time?
+
+Ans:
+
+"""
+Note that code is required only for Q1b.
+You may write your answers for Q1a and Q1c as comments.
+
+The following code is already included for you:
+
+def make_widget():
+    stuff = ["empty", "empty", 0]
+    def oplookup(msg,*args):
+        if msg == "insert":
+            place = stuff[2]
+            stuff[place] = args[0]
+            stuff[2] = (place + 1) % 2
+        elif msg == "retrieve":
+            return stuff[stuff[2]]
+        elif msg == "stuff":
+            return stuff
+        else:
+            raise Exception("widget doesn’t " + msg)
+    return oplookup
+
+widget = make_widget()
+
+"""
+
+"""Your Answer Here"""
+
+#(b)
+
+widget('insert', 1)
+widget('insert', 2)
+widget('insert', 3)
 
 
+"""
 
+a) A widget is a program that is written to describe what a widget looks like, behaves and responds to user actions. The widget would check the users actions and act accordingly by relying on a sub function.
 
+c) All the retrieval will result in the same element 2. When the we are working on 'retrieve', stuff[2] would be called which is 1, as a constant value regardless of the arguments passed to store in the widget. stuff[stuff[2]] = stuff[1], which is where element of value 2 is stored. Hence, only 2 will be returned all the three times. Once retrieved, the elements would still remain the same and hence positions remain unmodified.
 
-
-
-
-
-
-
+"""
 
 Question 2: Accumulator
 
