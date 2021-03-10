@@ -1,0 +1,105 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+Question 2: Accumulator
+
+An accumulator is a function that is called repeatedly with a single numeric argument and accumulates its arguments into a sum. Each time it is called, it returns the currently accumulated sum. Write a function make_accumulator that generates accumulators, each maintaining an independent sum.
+
+Sample execution:
+>>> A = make_accumulator()
+>>> A(10)
+10
+>>> A(10)
+20
+>>> B = make_accumulator()
+>>> B(30)
+30
+>>> B(-10)
+20
+
+Ans:
+
+def make_accumulator():
+    lst = [0]
+    def add(x):
+        lst[0] += x
+        return lst[0]
+    return add
+    
+### DO NOT MODIFY THIS ###
+A = make_accumulator()
+B = make_accumulator()
+
+
+Question 3: Make Monitored! Part 1
+
+In software-testing applications, it is useful to be able to count the number of times a given function is called during the course of a computation. Write a function make_monitored that takes as input a function, f, that itself takes one input. The result returned by make_monitored is a third function, say mf, that keeps track of the number of times it has been called by maintaining an internal counter. If the input to mf is the special string "how-many-calls?", then mf returns the value of the counter. If the input is the special string "reset-count", then mf resets the counter to zero. For any other input, mf returns the result of calling f on that input and increments the counter.
+
+Implement a function make_monitored.
+For instance, we could make a monitored version of the sqrt function:
+>>> s = make_monitored(sqrt)
+>>> s(100)
+10.0
+>>> s("how-many-calls?")
+1
+>>> s(1024)
+32.0
+>>> s("how-many-calls?")
+2
+>>> s("reset-count")
+>>> s("how-many-calls?")
+0
+
+Ans:
+
+def make_monitored(f):
+    a = [0]
+    a[0] = 0
+    def mf(x):
+        if x == "how-many-calls?":
+            return a[0]
+        elif x == "reset-count":
+            a[0] = 0
+            return None
+        else:
+            a[0] += 1
+            return f(x)
+    return mf
+
+    
+### DO NOT MODIFY THIS ###
+def double(x):
+    return 2 * x
+
+d = make_monitored(double)
+
+
+Question 6: Translations! Part 1
+
+Make use of dictionary to create a character translator function translate. It takes 3 strings as arguments: translate(source, destination, string) source contains the set of characters you want ”translated”, destination contains the set of characters to translate to, and string is the string to perform the translation on.
+
+For example:
+>>> translate("dikn","lvei","My tutor IS kind")
+"My tutor IS evil"
+In the example we have: d -> l; i -> v; k -> e; n -> i, thus kind is translated to evil.
+
+Ans:
+
+def translate(source,destination,string):
+    trans = dict(zip(source,destination))
+    for key in trans.keys():
+        string = string.replace(key, trans[key])
+    return string
+    
+
+
