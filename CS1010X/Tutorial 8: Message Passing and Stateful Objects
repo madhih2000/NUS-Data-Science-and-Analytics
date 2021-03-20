@@ -220,7 +220,31 @@ Sample execution (Note: your values for circle_estimate should be roughly approx
 
 Ans:
 
-
+def make_monte_carlo_integral(P,x1,y1,x2,y2):
+    trials=[0]
+    in_circle=[0]
+    def function(*cmd):
+        if cmd[0] == "run trials":
+            trials[0]+=cmd[1]
+            for i in range(cmd[1]):
+                x=random.uniform(-1,1)
+                y=random.uniform(-1,1)
+                if(P(x,y)):
+                    in_circle[0]+=1
+        elif cmd[0]== "trials":
+            return trials[0]
+        elif cmd[0] == "get estimate":
+            fraction = in_circle[0]/trials[0]
+            return fraction * (x2-x1)*(y2-y1)
+    return function
+    
+### DO NOT MODIFY THIS ###
+import math
+import random
+def circle(x,y):
+    return math.sqrt(x*x+y*y) < 1
+circle_estimate = make_monte_carlo_integral(circle,-1,-1,1,1)
+### The inrange function in testcases is used to check whether a value lies in a specified range.
 
 
 
