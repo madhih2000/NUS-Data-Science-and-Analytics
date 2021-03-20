@@ -138,6 +138,91 @@ def double(x):
 
 d = make_monitored(double)
 
+Question 4: Make Monitored! Part 2
+View Past Answers
+Explain how you can extend make_monitored so that it works for functions that take an arbitrary number of parameters. Rewrite your functions such that it implements your proposal.
+
+Example:
+ def sum_numbers(*numbers):
+    s = 0
+    for n in numbers:
+        s += n
+    return s
+
+>>> sum_numbers(1,2,3)
+6
+>>> sum_numbers(1,2,3,4,5)
+15
+
+Ans:
+
+def make_monitored_extended(f):
+    a = [0]
+    def mf(*args):
+        if args == ("how-many-calls?",):
+            return a[0]
+        elif args == ("reset-count",):
+            a[0] = 0
+            return None
+        else:
+            a[0] += 1
+            return f(*args)
+    return mf
+ 
+### DO NOT MODIFY THIS ###
+def sum_numbers(*numbers):
+    s = 0
+    for n in numbers:
+        s = s + n
+    return s
+
+monitored_sum_numbers = make_monitored_extended(sum_numbers)
+
+Question 5: Monte Carlo integration
+View Past Answers
+No past answers.
+Monte Carlo integration is a method of estimating definite integrals by means of Monte Carlo simulation.
+
+Consider computing the area of a region of space described by a predicate P(x; y) that is true for points (x; y) in the region and false for points not in the region. For example, the region contained within a circle of radius 3 centered at (5; 7) is described by the predicate that tests whether (x - 5) ** 2 + (y - 7) ** 2 < 3**2.
+
+To estimate the area of the region described by such a predicate, begin by choosing a rectangle that contains the region. For example, a rectangle with diagonally opposite corners at (2; 4) and (8; 10) contains the circle above. The desired integral is the area of that portion of the rectangle that lies in the region.
+
+We can estimate the integral by picking, at random, points (x; y) that lie in the rectangle, and testing P(x; y) for each point to determine whether the point lies in the region. If we try this with many points, then the fraction of points that fall in the region should give an estimate of the proportion of the rectangle that lies in the region. Hence, multiplying this fraction by the area of the entire rectangle should produce an estimate of the integral.
+
+Implement Monte Carlo integration as a function make_monte_carlo_integral that takes as arguments a predicate P,  lower and upper bounds x1, y1, x2, and y2 for the rectangle and returns a new function.
+
+This new function accepts the following commands:
+”run trials” and a number of trials to run and performs the stated number of trial.
+”trials” will return the number of trials run thus far.
+”get estimate” to return the current estimate given the trials run so far.
+
+Use your Monte Carlo integral to produce an estimate of the area of a unit circle.
+Hint: To choose a number at random from a given range, you can use random.uniform(low, high) after import random
+
+Sample execution (Note: your values for circle_estimate should be roughly approximate but probably will not be exactly the same):
+>>> circle_estimate = make_monte_carlo_integral(circle,-1,-1,1,1)
+>>> circle_estimate("run trials", 1000)
+>>> print(circle_estimate("trials"))
+1000
+>>> print(circle_estimate("get estimate"))
+3.068
+>>> circle_estimate("run trials", 10000)
+>>> print(circle_estimate("trials"))
+11000
+>>> print(circle_estimate("get estimate"))
+3.1243636363636362
+>>> circle_estimate("run trials", 100000)
+>>> print(circle_estimate("trials"))
+111000
+>>> print(circle_estimate("get estimate"))
+3.1454774774774776
+<
+
+Ans:
+
+
+
+
 
 Question 6: Translations! Part 1
 
