@@ -1,0 +1,143 @@
+Question 1: Computing SAT and IQ Scores Part 1
+
+The SAT is a standardized test for college admissions in the United States. It comprises 3 major sections: Verbal, Maths, and Writing. Each section has a score on the scale of 200 to 800. The SAT score is computed by adding up the scores of these 3 sections. The following chart shows the percentiles that various SAT scores correspond to:
+
+SAT Score Percentile
+>= 2200 99
+>= 2000 95
+>= 1500 50
+< 1500 10
+
+Your Task:
+
+Complete the function compute_percentile that returns the percentile of the SAT score as an int. Do not change the function name and the parameters or else the autograder will have problems testing the code and you will not pass this question.
+
+You may assume that the scores entered are all positive integers of type int and are in the range of 200 to 800. Four sample runs are shown below, with user input shown in bold. The scores entered are in the order of Verbal, Maths, and Writing.
+
+Ans:
+
+def compute_percentile(verbal, maths, writing):
+    total = verbal + maths + writing
+    if total < 1500:
+        return 10
+    elif total >= 1500 and total < 2000:
+        return 50
+    elif total >= 2000 and total < 2200:
+        return 95
+    else:
+        return 99
+
+
+
+Question 2: Computing SAT and IQ Scores Part 2
+
+The SAT is a standardized test for college admissions in the United States. It comprises 3 major sections: Verbal, Maths, and Writing. Each section has a score on the scale of 200 to 800. The SAT score is computed by adding up the scores of these 3 sections. The following chart shows the percentiles that various SAT scores correspond to:
+
+SAT Score Percentile
+>= 2200 99
+>= 2000 95
+>= 1500 50
+< 1500 10
+
+The SAT scores have been found to be highly correlated to IQ test scores. The following formula uses the scores for the Maths and Verbal sections to obtain an IQ score (of type float):
+IQ = (0.095 * Maths) + (0.003 * Verbal) + 50.241
+
+Your Task:
+
+Your are to write a function compute_iq_score that returns the overall IQ score truncated at 2 d.p. Do not change the function name and the parameters or else the autograder will have problems testing the code and you will not pass this question.
+
+You may assume that the scores entered are all positive integers of type int and are in the range of 200 to 800. Four sample runs are shown below, with user input shown in bold. The scores entered are in the order of Verbal, Maths, and Writing.
+
+Ans:
+
+
+def compute_iq_score(verbal, maths, writing):
+    IQ = (0.095 * maths) + (0.003 * verbal) + 50.241
+    return round(IQ, 2)
+    
+    
+Question 3: Identifying Undergrad Cards Part 1
+
+The Undergrad Inc. has issued its own Undergrad Cards, called uCard, for its distinguished undergraduate clients. Each of these uCards has a unique card number, which is a positive integer.
+
+To check the validity of a uCard number, the company invented a TenTenAs algorithm described here to generate a check number.
+
+TenTenAs Algorithm:
+
+Starting with a uCard number (of type int), for example 323456789.
+
+We examine each digit in the number. Starting with the second digit (from the right), we double every other digit. The others are left intact.
+
+For example, given the 9 digits: 3 2 3 4 5 6 7 8 9
+Our doubling effort produces: 3 4 3 8 5 12 7 16 9
+
+Lastly, we treat the above result as a new list of single digits: 3 4 3 8 5 1 2 7 1 6 9
+
+We then sum up all these digits to obtain the check number: 3 + 4 + 3 + 8 + 5 + 1 + 2 + 7 + 1 + 6 + 9 = 49
+
+Your Task:
+
+Complete the function ten_ten_as, that returns the check number otherwise. Do not change the function name and the parameters or else the autograder will have problems testing the code and you will not pass this question.
+
+Ans:
+
+def ten_ten_as(number):
+    string = str(number)
+    lst = list(string)
+    res = [int(x) for x in lst]
+    res.reverse()
+    final = []
+    for i in range(0,len(res)):
+        if i  % 2 != 0:
+            final.append(res[i] * 2)
+        else:
+            final.append(res[i])
+    total = [digital_root(num) for num in final]
+ 
+    return sum(total)
+    
+def digital_root(n):
+    return 1 + (n - 1) % 9 if n else 0
+    
+    
+Question 4: Identifying Undergrad Cards Part 2
+
+The Undergrad Inc. has issued its own Undergrad Cards, called uCard, for its distinguished undergraduate clients. Each of these uCards has a unique card number, which is a positive integer.
+
+A valid uCard can be issued from several branches of Undergrad Inc. The table below characterizes recognizable uCard numbers issued by the respective branches.
+
+Issuing Branches First two digits of the Card must be
+East branch 31 – 35
+West branch 51 – 55
+Central branch All other cases
+
+Your Task:
+
+Complete the two functions:
+
+valid: Returns True if the input parameter is a valid uCard number and returns False otherwise. A uCard number is valid when the check number is a multiple of 7. The ten_ten_as function in the previous question has been implemented and you can use it in your answer to get the check number easily.
+
+issuer: Returns the name of the issuing branch if the input parameter is a valid uCard number, else the function returns the string "Invalid".
+
+Have a look at the test cases to know the exact string to return. Do not change the function name and the parameters or else the autograder will have problems testing the code and you will not pass this question.
+
+Ans:
+
+def valid(number):
+    if ten_ten_as(number) % 7 == 0:
+        return True
+    else:
+        return False
+def issuer(number):
+    if valid(number) == True:
+        number = list(str(number))
+        number = [int(x) for x in number]
+        loc = int(str(number[0]) + str(number[1]))
+        if loc >= 31 and loc <= 35:
+            return 'East'
+        elif loc >= 51 and loc <= 55:
+            return 'West'
+        else:
+            return 'Central'
+    else:
+        return 'Invalid'
