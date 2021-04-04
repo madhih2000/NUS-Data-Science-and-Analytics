@@ -1,0 +1,385 @@
+Question 1: Mammals
+View Past Answers
+In this training, we will first attempt to model Mammals and the kind of sound that they make.
+
+Create a class Mammal, which represents a warm blooded animal. A Mammal will have a name, and will make a distinct sound.
+
+Your Mammal class should have the following properties:
+1. name: A str representing the name of the Mammal
+
+In addition, it should have the following methods:
+1. get_name(): Returns the name of the Mammal
+2. say(): Returns the distinct sound that the Mammal make. For now, this method will return a string in the following format: "What does the <name> say", where <name> is the name of the Mammal
+
+Ans:
+
+class Mammal(object):
+    def __init__(self, name):
+        self.name = name
+        
+    def get_name(self):
+        return self.name
+    
+    def say(self):
+        return f"What does the {self.name} say"
+        
+        
+Question 2: Mammalian Inheritance
+
+In order to create a Mammal, we will need to specify the name of the Mammal. This is cumbersome, and is prone to mistakes (we might accidentally create a 'Cet' instead of a 'Cat').
+
+We can create subclasses of Mammal, whose constructor will call the Mammal's constructor with the correct name. As such, the constructor of the subclass should take in no parameters.
+
+Create the following subclass of Mammal:
+
+1. Dog, with the name "Dog"
+2. Cat, with the name "Cat"
+3. Fox, with the name "Fox"
+
+Reminder: Your subclass constructor should use super's constructor
+
+NOTE: You should only include the definition of the Dog, Cat and Fox classes and nothing else. In particular, DO NOT include the definition of the Mammal class in your code. We will be defining it and your code will fail some private test cases should you redefine the Mammal class.
+
+Ans:
+
+# You DO NOT NEED TO DEFINE Mammal class here!
+
+class Dog(Mammal):
+    def __init__(self):
+        name = "Dog"
+        super().__init__(name)
+        
+# Cat definition should go here
+class Cat(Mammal):
+    def __init__(self):
+        name = "Cat"
+        super().__init__(name)
+
+# Fox definition should go here
+class Fox(Mammal):
+    def __init__(self):
+        name = "Fox"
+        super().__init__(name)
+        
+
+
+Question 3: Mammalian Polymorphism
+
+A benefit of deriving subclass of Mammal is now we can employ polymorphism to modify the behaviour of the different type of mammals. A Dog will make a distinct sound compared to a Cat, and the default implementation of say(), which simply returns the str "What does the <name> say", is not useful.
+
+Modify your code to change the behaviour of the say() function of the Mammal subclass. Employ polymorphism by implementing say() function in your subclasses.
+
+Here is what each of the Mammals have to say:
+1. Dog says "Woof"
+2. Cat says "Meow"
+3. Fox says "Ring-ding-ding-ding-dingeringeding"
+
+NOTE: You should only include the definition of the Dog, Cat and Fox classes and nothing else. In particular, DO NOT include the definition of the Mammal class in your code. We will be defining it and your code will fail some private test cases should you redefine the Mammal class.
+
+Ans:
+
+# You DO NOT NEED TO DEFINE Mammal class here!
+
+# Implement additional methods to your Dog, Cat and Fox subclasses to modify what they say.
+class Dog(Mammal):
+    def __init__(self):
+        name = "Dog"
+        super().__init__(name)
+    
+    def say(self):
+        return "Woof"
+        
+
+class Cat(Mammal):
+    def __init__(self):
+        name = "Cat"
+        super().__init__(name)
+    
+    def say(self):
+        return "Meow"
+        
+
+class Fox(Mammal):
+    def __init__(self):
+        name = "Fox"
+        super().__init__(name)
+    
+    def say(self):
+        return "Ring-ding-ding-ding-dingeringeding"
+    
+   
+Question 4: Artist
+
+In this second part of the training we will be exploring how the Object Oriented Programming (OOP) pattern can provide us with a useful model of programming abstraction. We will be using OOP to model artists and songs.
+
+First, we need to model the artist. We assume that every artist would have a name, as well as a date of birth.
+
+Create an Artist class that has the following properties:
+1. name :A str representing the name of the artist
+2. dob: A tuple of integers representing the birth date in the format of (year, month, day)
+
+It should also have the following methods:
+1. get_name(): Returns the name of the artist
+2. get_dob(): Returns the dob of the artist
+
+NOTE: You do not have to provided the definition of the jt variable in your code; its definition will be provided by us.
+
+Ans:
+
+class Artist(object):
+    def __init__(self, name, dob):
+        self.name = name
+        self.dob = dob
+
+    def get_name(self):
+        return self.name
+
+        
+    def get_dob(self):
+        return self.dob
+        
+        
+# Used for public test cases.
+# You DO NOT have to include this in your submission.
+jt = Artist("Justin Timberlake", (1981, 1, 31))
+
+
+Question 5: Artist Age
+
+We will now like a way to know the age of an artist. Although our first impulse might be to create an age property in our Artist class, we must resist this temptation; doing so means that we will need to update the age of all the artists in our system every time their birthday comes around!
+
+A more general way will be to determine the age of an artist by taking the year difference between the current date and the artist's date of birth.
+
+Create an age method in the Artist class, which would return the age of the artist as of 'today'.
+
+To aid in testing, get_date_today() function has been defined for you. The function will return a reference date, and you should treat the date returned from the function as the date 'today'. You MUST use the get_date_today() function in your age method in order to pass all the test case! (The private test case will modify the implementation of get_date_today() to verify that your solution works!)
+
+HINT: Your age method should be accurate to the date! For example:
+
+hw = Artist("Hayley Williams", (1988, 12, 27))
+print(hw.age())       # 24 if 'today' is >= (2012, 12, 27) and < (2013, 12, 27) ; 25 if 'today' is >= (2013, 12, 27) and < (2014, 12, 27)
+
+
+
+SIMPLIFYING ASSUMPTION: You may assume that someone born on the 29th of February will have his/her birthday on the 1st of March of a non leap year.
+
+HINT: You can make use of tuple comparison to greatly simplify your code.
+
+NOTE: You do not have to include the definitions of the get_date_today function and the jt variable in your code; their definitions will be provided.
+
+Ans:
+
+def get_date_today():
+    return (2013, 10, 30)
+
+class Artist(object):
+    def __init__(self, name, dob):
+        self.name = name
+        self.dob = dob
+
+    def get_name(self):
+        return self.name
+
+        
+    def get_dob(self):
+        return self.dob
+    
+    def age(self):
+        year = get_date_today()[0] - self.dob[0]
+        if get_date_today()[1] < self.dob[1]:
+            year = get_date_today()[0] - self.dob[0] - 1
+            return year
+        elif get_date_today()[1] == self.dob[1]:
+            if get_date_today()[2] < self.dob[2]:
+                return year - 1
+            else:
+                return year
+        else:
+            return year
+    
+
+
+# Used for public test cases.
+# You DO NOT have to include this in your submission
+jt = Artist("Justin Timberlake", (1981, 1, 31))
+
+
+Question 6: Duration
+
+Before we move on to modeling songs, we need a concise way of representing the duration of a song. Typically, most songs are between 3-7 minutes, as such the resolution for our duration would typically be in minutes and seconds.
+
+The most convenient way to store a duration of the song would be to store it total seconds form, and then convert it when necessary. However, that is not the most convenient way to reason about the duration (when is the last time you tell someone that a song is 180 seconds long?)
+
+Create a class Duration, which will take in a duration in minutes and seconds.
+
+It should have the following property:
+1. total_seconds, which stores the duration in the total number of seconds
+
+And the following methods:
+1. get_minutes(), which returns the minute component of the duration
+2. get_seconds(), which returns the seconds component
+
+
+Ans:
+
+class Duration(object):
+    def __init__(self, minutes, seconds):
+        self.minutes = minutes
+        self.seconds = seconds
+        self.total_seconds = minutes * 60 + seconds
+        
+    def get_minutes(self):
+        if self.seconds >= 60:
+            return self.minutes + 1
+        else:
+            return self.minutes
+    
+    
+    def get_seconds(self):
+        if self.seconds >= 60:
+            return self.seconds - 60
+        else:
+            return self.seconds
+        
+Question 7: Duration String Representation
+
+We have learned about the __init__ special method in a class, which is the first method that is called when we initialize the class. Now it is time to learn another special method, the __str__ method!
+
+We want a way to represent the duration in a string form (such as "03:20"). One obvious way of doing this would be to create a method (pretty_string(), perhaps?) which would return us the string representation of the duration in the format we want. However, this is cumbersome and clunky. Python provide us a way to directly specify the string representation of an object, using the __str__ special method.
+
+The following example illustrates the __str__ function:
+class Point(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return "P(" + str(self.x) + "," + str(self.y) + ")"
+
+point = Point(1, 2)
+print( str(point) )      # P(1,2)
+
+
+When you call str(point), the value that will be returned will be the same value as the return value of the __str__ method in the class.
+(In another words, this means that the following are equivalent: str(duration) and duration.__str__())
+
+Write a __str__ method in your Duration class to return the string representation of the Duration in "mm:ss" form.
+
+NOTE: If the minutes or second part is less than 10, it should be prefixed with a 0.
+NOTE: It is perfectly ok if the minutes part occupies more than 2 digits.
+
+Ans:
+
+
+class Duration(object):
+    def __init__(self, minutes, seconds):
+        self.minutes = minutes
+        self.seconds = seconds
+        self.total_seconds = minutes * 60 + seconds
+        
+    def get_minutes(self):
+        if self.seconds >= 60:
+            return self.minutes + 1
+        else:
+            return self.minutes
+    
+    
+    def get_seconds(self):
+        if self.seconds >= 60:
+            return self.seconds - 60
+        else:
+            return self.seconds
+        
+    
+    def __str__(self):
+        if self.seconds == 0 and self.minutes == 0:
+            return "00:00"
+        if self.seconds > 60:
+            self.seconds = self.seconds - 60
+            self.minutes = self.minutes + 1
+        if self.seconds < 10:
+            self.seconds = f"0{self.seconds}"
+        if self.minutes < 10:
+            self.minutes = f"0{self.minutes}"
+
+        
+        return f"{self.minutes}:{self.seconds}"
+   
+   
+Question 8: Duration Operators
+
+Next, we can define other operators that could be useful for Duration objects. In particular, we want a way to add up Duration objects. (Can you think of a reason why that would be useful?)
+
+The __add__ special method takes in an object, and will 'override' the + operator when used by the objects. The following example illustrates the use of the __add__ special method:
+
+class Point(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return "P(" + str(self.x) + "," + str(self.y) + ")"
+
+    def __add__(self, object):
+        # NOTE: New Point object is returned
+        return Point(self.x + object.x, self.y + object.y)
+
+p1 = Point(1, 2)
+p2 = Point(3, 4)
+p = p1 + p2
+print( str(p) )      # P(4,6)
+
+
+
+
+More specifically, the following is equivalent: p1 + p2 and p1.__add__(p2)
+
+Implement the __add__ method in your Duration class.
+
+NOTE: The return value of your __add__ method should be a new Duration instance!
+
+
+Ans:
+
+
+class Duration(object):
+    def __init__(self, minutes, seconds):
+        self.minutes = minutes
+        self.seconds = seconds
+        self.total_seconds = minutes * 60 + seconds
+        
+    def get_minutes(self):
+        if self.seconds >= 60:
+            return self.minutes + 1
+        else:
+            return self.minutes
+    
+    
+    def get_seconds(self):
+        if self.seconds >= 60:
+            return self.seconds - 60
+        else:
+            return self.seconds
+    
+    def __add__(self, object):
+        return Duration(self.minutes + object.minutes, self.seconds + object.seconds)
+    
+    def __str__(self):
+        if self.seconds == 0 and self.minutes == 0:
+            return "00:00"
+        if self.seconds > 60:
+            se = self.seconds // 60 
+            minus = se * 60
+            self.seconds = self.seconds - minus
+            self.minutes = self.minutes + se
+        if self.seconds < 10:
+            self.seconds = f"0{self.seconds}"
+        if self.minutes < 10:
+            self.minutes = f"0{self.minutes}"
+
+        
+        return f"{self.minutes}:{self.seconds}"
+    
+    
+        
+
