@@ -379,7 +379,113 @@ class Duration(object):
 
         
         return f"{self.minutes}:{self.seconds}"
+     
+
+Question 9: Song
+
+With Duration out of the way, we can finally model a Song. A Song has the following properties:
+
+1. artist: An Artist object representing the artist of the song
+2. title: A str representing the title of the song
+3. duration: A Duration object representing the duration of the song
+
+It should have the following methods:
+1. get_artist(): Returns the Artist object
+2. get_title(): Returns the title of the song
+3. get_duration(): Returns the duration of the song
+
+Implement the Song class.
+
+Reminder: As usual, you only need to implement the Song class. You may assume that the Artist and Duration classes have been defined for you and are correct.
+
+NOTE: Please only include the definition of the Song class and nothing else. In particular, please remove all test cases you have added or those provided in the template. On submission, if you see any errors about Artist not defined or Duration not defined, like the following:
+
+# Traceback (most recent call last):
+#     in <module>
+# NameError: name 'Artist' is not defined
+
+then most probably you have included some test cases using the above mentioned class(es). Please remove the offending code and resubmit.
     
     
+ Ans:
+ 
+# NOTE: You DO NOT have to include the definitions of the
+#       Artist and Duration classes here.
+class Song(object):
+    def __init__(self, artist, title, duration):
+        self.artist = artist
+        self.title = title
+        self.duration = duration
+        
+    
+    def get_artist(self):
+        return self.artist
+        
+    
+    def get_title(self):
+        return self.title
+        
+        
+    def get_duration(self):
+        return self.duration
         
 
+Question 10: Album
+
+We are now finally able to model an Album. An album should be initialized with an Artist and a title.
+
+It should have the following properties:
+1. artist: An Artist object representing the Artist of the album.
+2. title: A str representing the title of the album.
+3. songs: A list of songs in the album (Initially it is empty).
+
+In addition, it should provide the following method:
+1. add_song(self, song): Adds song (of class Song) to the album.
+2. total_runtime(self): Returns the total runtime (of class Duration) of the album.
+
+The example tests use a Band class defined as follows:
+class Band(Artist):
+    def __init__(self, name, dob, members):
+        super().__init__(name, dob)
+        self.members = members
+        
+    def formation_age(self):
+        return super().age()
+
+    def age(self):
+        total_age = 0
+        for member in self.members:
+            total_age += member.age()
+
+        return total_age / len(self.members)
+
+NOTE: You may assume that the Artist, Duration, Song and Band classes have been defined. You only need to submit code for the Album class.
+
+NOTE: Please only include the definition of the Album class and nothing else. In particular, please remove all test cases you have added or those provided in the template. On submission, if you see any errors about Artist, Duration, Song or Band not defined, like the following:
+
+# Traceback (most recent call last):
+#     in <module>
+# NameError: name 'Artist' is not defined
+
+then most probably you have included some test cases using the above mentioned classes. Please remove the offending code and resubmit.
+
+
+Ans:
+
+# NOTE: You DO NOT have to include the definitions of the
+#       Artist, Duration, Song and Band classes here.
+class Album(object):
+    def __init__(self, artist, title):
+        self.artist = artist
+        self.title = title
+        
+        self.songs = []
+    def add_song(self, song):
+        self.songs.append(song)
+        
+    def total_runtime(self):
+        total_time = Duration(0,0)
+        for song in self.songs:
+            total_time = total_time + song.get_duration()
+        
+        return total_time
