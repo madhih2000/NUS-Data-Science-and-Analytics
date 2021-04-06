@@ -1,0 +1,311 @@
+Question 1: Normalizing a vector
+
+Suppose that you have a list of numbers, and you need to normalize the list, i.e., the sum of all numbers in the list is equal to 1.
+
+Tam came out with an implementation:
+
+def normalize(lst):
+    s = sum(lst)
+    return list(map(lambda v: v / s, lst))
+This code works correctly for normalize([1, 2, 5, 4]) but fails for normalize([1, 2, -7, 4]). What causes the second test case to fail?
+
+Find out the error message and keep the list as is it when the error occurs by simply return the list. So without modifying the normalize function, implement this strategy in the safe_normalize function. Complete safe_normalize. You may assume that the normalize function has already been defined for you.
+
+Ans:
+
+def safe_normalize(lst):
+    try:
+        normalize(lst)
+      
+    except ZeroDivisionError:
+        
+        return lst
+    
+    else:
+        return normalize(lst)
+
+
+Question 2: Differentiating exceptions
+
+As you might have learned, a function might raise more than one type of exception. In practice, it would be good if we handle each exception separately. In this exercise, we choose to return different values when different exceptions occur.
+
+Without knowing what is implemented in the mysterious calculate(num) function that Wai Hon implemented, examine the the exception it fires and handle all types of exceptions properly.
+
+There are two types of exceptions that might be thrown from calculate(): division by zero error and type error. Return 0 when you catch division by zero, and return None when you catch a type error. Otherwise, return the value produced by calculate(num).
+
+Implement the above strategy in safe_calculate. The calculate(num)is provided but hidden; you can call it.
+
+Ans:
+
+
+def safe_calculate(num):
+    try:
+        calculate(num)
+    
+    except ZeroDivisionError:
+        return 0
+        
+    except TypeError:
+        return None
+    
+    else:
+        return calculate(num)
+
+
+Question 3: Raise an exception
+
+Leon decides to write a Python program to count towards the next birthday. 
+
+In order to do so, he plans to write the function count_days(start_date, end_date)﻿ which takes in the start and end date in the string format, "dd/mm/yyyy"﻿, and returns the number of days between the start date and end date. The start date is included while the end date is not included in the count. Note that leading zeroes in start_date and end_date are skipped if there are any (For example, the date 1st January 2017 will be in the format 1/1/2017). 
+
+Currently, Leon has only completed a skeleton of count_days, and a few helper functions, which are provided below. 
+
+Your task:
+
+(a) Help Leon complete the four functions marked with 'TODO'. They are get_day_month_year, less_than_equal, next_date and count_days.
+
+(b) Leon was quite careless and he didn't check for input data validity. You will also need to help him with this. We only proceed to count days if the dates are valid, and the start date is before or same as the end date. 
+
+Assume a valid date is in between 1/1/1970 to 31/12/9999. The leap year and valid date check are already provided.
+If one of the dates is not valid, throw an exception with a message that has the value: "Not a valid date: " + date, where date is the invalid date.
+If the start date is after the end date, throw an exception with a message value: "Start date must be less than or equal end date."
+Note: is_leap_year(year) and is_valid(d, m, y) are provided, you can make use of them.
+
+
+Ans:
+
+def is_leap_year(year):
+    # DONE: do not need to modify
+    if year % 4 == 0 and year % 100 != 0:
+        return True
+    if year % 400 == 0:
+        return True
+    return False
+def is_valid(d, m, y):
+    # DONE: do not need to modify    
+    # d, m, y represents day, month, and year in integer.
+    if y < 1970 or y > 9999:
+        return False
+    if m <= 0 or m > 12:
+        return False
+    if d <= 0 or d > 31:
+        return False
+    if m == 4 or m == 6 or m == 9 or m == 11:
+        if d > 30:
+            return False
+    if is_leap_year(y):
+        if m == 2 and d > 29:
+            return False
+    else:
+        if m == 2 and d > 28:
+            return False
+        
+    return True
+def get_day_month_year(date):
+    # TODO: split the date and return a tuple of integer (day, month, year)
+    date_split = date.split('/')
+    date_int = [int(x) for x in date_split]
+    tup = tuple(date_int)
+    
+            
+    return tup
+def next_date(d, m, y):
+    # TODO: get the next date from the current date (d, m, y)
+    # return a tuple of integer (day, month, year).
+    if (y % 400 == 0):
+        leap_year = True
+    elif (y % 100 == 0):
+        leap_year = False
+    elif (y % 4 == 0):
+        leap_year = True
+    else:
+        leap_year = False
+    
+    if m in (1, 3, 5, 7, 8, 10, 12):
+            month_length = 31
+    elif m == 2:
+        if leap_year:
+            month_length = 29
+        else:
+            month_length = 28
+    else:
+        month_length = 30
+        
+    if d < month_length:
+        d += 1
+    else:
+        d = 1
+        if m == 12:
+            m = 1
+            y += 1
+        else:
+            m += 1
+            
+    return(d, m, y)
+    
+def less_than_equal(start_day, start_mon, start_year,end_day, end_mon, end_year):    
+    # TODO: return true if start date is before or same as end date
+    if start_year < end_year:
+        return True
+    elif start_year == end_year:
+        if start_mon < end_mon:
+            
+            return True
+        elif start_mon == end_mon:
+            
+            if start_day <= end_day:
+                return True
+            else:
+                return False
+        else:
+            return False
+    
+    else:
+        return False
+def count_days(start_date, end_date):
+    # date is represented as a string in format dd/mm/yyyy
+    start_day, start_mon, start_year = get_day_month_year(start_date)
+    end_day, end_mon, end_year = get_day_month_year(end_date)
+    # TODO: check for data validity here #
+    # if start date is not valid...
+    # if end date is not valid...
+    # if start date > end date...
+    if is_valid(start_day, start_mon, start_year) == False:
+        return "Not a valid date: " + start_date
+    
+    if is_valid(end_day, end_mon, end_year) == False:
+        return "Not a valid date: " + end_date
+    
+    if less_than_equal(start_day, start_mon, start_year,end_day, end_mon, end_year) == False:
+        return "Start date must be less than or equal end date."
+    
+    else:  
+        # lazy - let the computer count from start date to end date
+        count = 0
+        while less_than_equal(start_day, start_mon, start_year, end_day, end_mon, end_year):
+            count = count + 1
+            start_day, start_mon, start_year = next_date(start_day, start_mon, start_year)
+    
+        # exclude end date
+        return count - 1
+
+
+Question 5
+
+One of the senior wizards Yee Sian was trapped in a maze during a mission. The maze has n * m cells, labeled from (0, 0) to (n-1, m-1). Starting at cell (0, 0), each time Yee Sian can only take one step, either to the right or down. We wish to find out the number of possible paths to the destination (n - 1, m - 1). A sample path is shown in the figure below.
+
+
+
+Having learnt the technique of speeding up the pascal function through memoization, you decide to apply it here. If Yee Sian can walk out by himself (number of paths > 0), tell him how many ways there are. Otherwise, report to the Grandwizard and send for a rescue team.
+
+Write Python function num_of_paths that takes in two integers representing number of rows and columns in a maze and returns an integer value of number of paths from cell (0, 0) to cell (n - 1, m - 1). The table and skeleton code are given to you. Your table is essentially a python dictionary that stores (i, j):val pairs which indicate the number of paths from cell (0, 0) to cell (i, j).
+
+Note: You may assume that all inputs n and m are valid. i.e. n > 0, m > 0.
+
+Ans:
+
+table = {}  # table to memoize computed values
+def num_of_paths(n, m):
+    if (n, m) in table:
+        return table[(n, m)]
+    elif n == 1 or m == 1:
+        table[(n, m) ] = 1
+    else:
+        table[(n, m)] = num_of_paths(n-1, m) + num_of_paths(n, m - 1)
+    return table[(n, m)]
+    
+ 
+Question 6
+
+Just when you were about to tell Yee Sian whether there are ways out of the maze, he sent a new update of the situation. It turns out that there are bombs in some of the cells! The maze can be further illustrated by the picture below, where black grids represent cells with bombs. Of course, Yee Sian cannot visit those cells. Based on the new update, select all correct answers below.
+
+Ans:
+
+# Set all table [(i,j)] to be 0 where cell (i,j) is a bomb. remain the rest unchanged.
+# There might or might not be a way out depending on the location of the bombs
+
+
+Question 7
+
+Since you now have a good understanding of the new situation, write a new num_of_paths function to get the number of ways out. The function should take in a map of maze that Yee Sian sent to you and return the result as integer. The map is a tuple of n tuples, each with m values. The values inside the tuple is either 0 or 1. So maze[i][j] will tell you what's in cell (i, j) and 0 stands for a bomb in that cell. For example, this is the maze we saw in last question:
+
+((1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
+ (1, 0, 0, 1, 1, 1, 0, 0, 1, 1),
+ (0, 1, 1, 1, 0, 0, 1, 1, 1, 0),
+ (1, 1, 0, 1, 1, 1, 1, 0, 1, 1),
+ (0, 1, 0, 1, 0, 0, 1, 0, 1, 0),
+ (1, 0, 1, 1, 1, 1, 0, 1, 1, 1),
+ (0, 1, 1, 1, 1, 1, 1, 1, 1, 0),
+ (1, 0, 1, 0, 0, 1, 1, 0, 1, 1),
+ (1, 0, 1, 1, 1, 0, 1, 0, 1, 0),
+ (1, 1, 0, 1, 0, 1, 0, 1, 1, 1))
+Note: You should be using DP to pass time limitation test. You might find the following algorithm useful:
+
+1. Initialize an empty table (dictionary), get number of rows n and number of columns m
+2. Fill in the first row. For j in range m:
+  1. If maze[0][j] is safe, set table[(0, j)] to be 1 because there's one way to go there.
+  2. If maze[0][j] has a bomb, set table[(0, k)] where k >= j to be 0. Since one cell is broken along the way, all following cells cannot be reached.
+3. Fill in first column. For i in range n:
+  1.If maze[i][0] is safe, set table[(i, 0)] to be 1 because there's one way to go there.
+  2.If maze[i][0] has a bomb, set table[(i, 0)] and all cells under it to be 0. The reason is same as row.
+4. Main DP procedure - fill in the rest of the table. If maze[i][j] has a bomb, set table[(i, j)] = 0. Otherwise, table[(i, j)] = table[(i - 1, j)] + table[(i, j - 1)]
+5. Return table[(n - 1, m - 1)]
+
+
+Ans:
+
+def num_of_paths(maze):
+    table = {}
+    n = len(maze)
+    m = len(maze[0])
+    for j in range(m):
+        if maze [0][j] == 1: 
+            table[(0, j)] = 1
+        else: 
+            for k in range(j,m):
+                table[(0, k)] = 0
+            break
+    for i in range(n): 
+        if maze[i][0] == 1: 
+            table[(i,0)] = 1
+        else: 
+            for k in range(i,n):
+                table[(k,0)] = 0
+            break
+    for j in range(1,m): 
+        for i in range(1,n):
+            if maze[i][j] == 0: 
+                table[(i,j)] = 0
+            else:
+                table[(i,j)] = table[(i - 1, j)] + table[(i, j - 1)]
+    return table[(n-1,m-1)] 
+    
+    
+    
+    
+# Do NOT modify
+maze1 = ((1, 1, 1, 1, 1, 1, 1, 1, 0, 1),
+         (1, 0, 0, 1, 1, 1, 0, 0, 1, 1),
+         (0, 1, 1, 1, 0, 0, 1, 1, 1, 0),
+         (1, 1, 0, 1, 1, 1, 1, 0, 1, 1),
+         (0, 1, 0, 1, 0, 0, 1, 0, 1, 0),
+         (1, 0, 1, 1, 1, 1, 0, 1, 1, 1),
+         (1, 1, 0, 1, 0, 1, 0, 0, 1, 1),
+         (0, 1, 1, 1, 1, 1, 1, 1, 1, 0),
+         (1, 0, 1, 0, 0, 1, 1, 0, 1, 1),
+         (1, 0, 1, 1, 1, 0, 1, 0, 1, 0),
+         (1, 1, 0, 1, 0, 1, 0, 1, 1, 1))
+maze2 = ((1, 1, 1, 1, 1, 1, 1, 1, 1),
+         (1, 1, 1, 1, 1, 1, 1, 1, 1),
+         (1, 1, 1, 1, 1, 1, 1, 1, 1),
+         (1, 1, 1, 1, 1, 1, 1, 1, 1),
+         (1, 1, 1, 1, 1, 1, 1, 1, 1),
+         (1, 1, 1, 1, 1, 1, 1, 1, 1),
+         (1, 1, 1, 1, 1, 1, 1, 1, 1))
+maze3 = ((1, 0, 1, 1),
+         (1, 0, 1, 1),
+         (1, 0, 1, 1),
+         (1, 0, 1, 1),
+         (1, 0, 1, 0),
+         (1, 0, 0, 1))
+
