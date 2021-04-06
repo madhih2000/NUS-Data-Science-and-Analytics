@@ -1,0 +1,177 @@
+Question 1: Task 1
+
+Let’s practice implementing a simple OOP object from scratch. We want to model a MMORPG game world using OOP where players can use weapons to kill animals to gain items. Your job is to model a class Thing, which will be the superclass of items in the game. Refer to the PDF for examples.
+
+The essential properties of a Thing are as follows :
+1. The constructor should take in 1 parameter, the name of the Thing.
+
+2. owner: an attribute that stores the owner object of the Thing, usually a Person object. In OOP, we set this attribute to None during initialisation when this thing does not belong to any Person yet (to signify the absence of an object value).
+
+Implement the class Thing such that it satisfies the above properties and methods.
+
+3. is_owned(): returns a boolean value, True if the Thing is "owned" and False otherwise.
+
+4. get_owner(): returns the (Person) object who owns the Thing object
+
+Ans:
+
+# your class definition here
+class Thing(object):
+    def __init__(self,name):
+        self.name = name
+        self.owner = None
+        
+    
+    def is_owned(self):
+        return self.owner != None
+    
+    def get_owner(self):
+        return self.owner
+        
+### uncomment the lines below ###
+stone = Thing('stone')
+stone2 = Thing('stoning')
+stone2.owner = beng # a Person object whose name is 'beng'
+### uncomment the lines above ###
+
+
+Question 2: Task 2
+
+The above Thing definition is still not satisfactory; it should support the following methods too. Modify and extend your Thing definition from Task 1.
+
+1. get_name(): will return the name (string) of the thing.
+
+2. place: just like the owner attribute, we need to keep state of the place object where the thing is in. Similarly, this attribute should be initialized to None when the Thing object is created.
+
+3. get_place(): will return the place associated with the Thing.
+
+
+Ans:
+
+class Thing(object):
+    def __init__(self,name):
+        self.name = name
+        self.owner = None
+        self.place = None
+    
+    def is_owned(self):
+        return self.owner != None
+    
+    def get_owner(self):
+        return self.owner
+    
+    def get_name(self):
+        return self.name
+        
+    def get_place(self):
+        return self.place
+### uncomment the lines below ###
+stone2 = Thing('Stone')
+stone2.owner = beng
+stone2.place = base # a Place object whose name is 'base'
+### uncomment the lines above ###
+
+Question 3: Task 3
+
+Now imagine if you were to try to model other objects in the game world. Objects like Person and Animal will definitely share get_name() and get_place() with Thing. It will be a hassle and clunky to redefine these methods for all other objects in our game world. Fortunately for you, this is where Inheritance (and hungry_games.py) comes to the rescue!
+
+Inside hungry_games.py, you will find that get_name() is captured by the class NamedObject while get_place() is captured by MobileObject.
+
+Many other basic objects in the game world are defined in hungry_games.py.
+
+Now Ben Bitdiddle wants to try modifying the original definition of Thing from Task 1 such that it inherits from MobileObject instead. Here are his class header and constructor (the rest of his definition require no changes):
+
+class Thing(MobileObject):
+    def __init__(self, name):
+        self.name = name
+        self.owner = None
+
+What is wrong with his code?
+
+Ans:
+
+
+"""Fill in your answers as comments"""
+# When you inherith from the mobile object, there is a need to use super to use inheritance from the thing object.
+# Doing like the above would initialize a new Thing Object.
+
+
+Question 4: Task 4 Part 1
+
+Draw a simple inheritance diagram showing all kinds of objects (classes) defined in the adventure game system, the inheritance relations between them, and the methods defined for each class. This is critical in helping you to understand the OOP system in hungry_games.py for your missions.
+
+You may choose to draw it out in the template below or on your own (this portion is not worth any marks).
+
+Additionally, hungry_games.py, engine.py and imaginary_map.py have been provided to you to try out the simulation game.
+
+Ans:
+
+NIL
+
+Question 5: Task 4 Part 2
+
+Suppose we evaluate the following statements:
+ice_cream = Thing("ice_cream") 
+ice_cream.owner = beng 
+Come up with statements whose evaluation will reveal all the properties of ice cream and verify that its (new) owner is indeed beng.
+
+Ans:
+
+
+"""
+Write your code here!
+ice_cream.get_owner()
+ice_cream.is_owned()
+ice_cream.get_name()
+ice.cream.get_place()
+"""
+
+Question 6: Task 4 Part 3
+
+Now suppose we evaluate the following statements:
+ice_cream = Thing("ice_cream")
+ice_cream.owner = beng
+beng.ice_cream = ice_cream
+Is there anything wrong with the last two statements? What’s the moral of the story?
+
+Ans:
+
+
+"""Fill in your answers here!"""
+# ice_cream.owner is correct where we have initialized the owner as beng
+# However, we are unable to do the last statement as beng is not a thing. Hence it would not have any associated 
+# properties like what ice_cream had and hence will result in an error.
+
+Question 7: Task 4 Part 4
+
+Suppose that, in addition to ice cream we defined above, we define rum_and_raisin = NamedObject("ice_cream").
+Are ice cream and rum and raisin the same object (i.e., does ice_cream is rum_and_raisin evaluate to True)?
+
+Ans:
+
+No
+
+Question 8: Task 4 Part 5
+
+Now let’s make two similar objects in our world.
+from hungry_games import *
+burger1 = Thing("burger")
+burger2 = Thing("burger")
+
+Are burger1 and burger2 the same object? Would burger1 == burger2 evaluate to True? Let’s say we want to a way to compare Thing objects, and objects that have the same name and are at the same location should evaluate to True when we compare them with == (i.e. Objects like burger1 and burger2 should be considered equal when tested with ==).
+
+How would you do it?
+HINT: Recall the __init__ special method - it is called when we first initalize the object. Is there other special Python methods that you can use to do equality comparison?
+
+Ans:
+
+
+"""
+Are burger1 and burger2 the same object?
+Your answer: No
+Would burger1 == burger2 evaluate to True?
+Your answer: False
+How would you do it?
+Your answer:
+You use burger1 is burger2 which will return a boolean value False.
+"""
