@@ -94,3 +94,87 @@ five=Number(5)
 two=ten.divide(five)
 ### Uncomment the lines above ###
 
+
+Question 4: Modified number
+
+Normally, we will have problem when divide by zero. Modify Number to handle division by zero in this way:
+
+Example:
+>>>zero=Number(0)
+>>>one=Number(1)
+>>>something=one.divide(zero)
+>>>something.value()
+"Undefined"
+>>>another_thing = something.plus(one)
+>>>another_thing.value()
+"Undefined"
+>>>something_else=something.times(one)
+>>>something_else.value()
+"Undefined"
+>>>something_else_again=something.minus(one)
+>>>something_else_again.value()
+"Undefined"
+>>>last_thing=something.divide(one)
+>>>last_thing.value()
+"Undefined"
+
+
+Ans:
+
+class Number(object):
+    # complete the class definition #
+    def __init__(self, num):
+        self.num = num
+    
+    def value(self):
+        return self.num
+        
+    def minus(self, other):
+        if self.value() == "Undefined" or other.value() == "Undefined":
+            a = "Undefined"
+        else:
+            a = self.num - other.num
+        return Number(a)
+    
+    
+    def times(self, other):
+        if self.value() == "Undefined" or other.value() == "Undefined":
+            a = "Undefined"
+        else:
+            a = self.num * other.num
+        return Number(a)
+    
+    def plus(self, other):
+        if self.value() == "Undefined" or other.value() == "Undefined":
+            a = "Undefined"
+        else:
+            a = self.num + other.num
+        return Number(a)
+    
+    def divide(self, other):
+        if other.num == 0:
+            a = "Undefined"
+        elif self.value() == "Undefined" or other.value() == "Undefined":
+            a = "Undefined"
+        else:
+            a = self.num / other.num
+        return Number(a)
+
+
+### Uncomment the lines below ###
+
+seventeen = Number(17)
+four = Number(4)
+zero = Number(0)
+
+thirteen = seventeen.minus(four)
+fiftytwo = thirteen.times(four)
+
+blackjack=seventeen.plus(four)
+something=blackjack.divide(zero)
+another_thing=blackjack.plus(something)
+something_else=another_thing.divide(blackjack)
+
+### Uncomment the lines above ###
+
+
