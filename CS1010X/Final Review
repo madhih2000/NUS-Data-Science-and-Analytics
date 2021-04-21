@@ -1,0 +1,96 @@
+Question 1: deep reverse
+
+Write the recursive function deep_reverse that takes in a list as argument and returns a list with its elements reversed and with all sublists deep-reversed as well.
+
+Example:
+>>>deep_reverse([1,2,[3,4],[[5]],[6,[7,8],9]])
+[[9,[8,7],6],[[5]],[4,3],2,1]
+
+Ans:
+
+def deep_reverse(lst):
+    if lst == []:
+        return lst
+    elif not is_list(lst[0]):
+        return deep_reverse(lst[1:]) + [lst[0]]
+    else:
+        return deep_reverse(lst[1:]) + [deep_reverse(lst[0])]
+    
+
+def is_list(lst):
+    return isinstance(lst, list)
+    
+    
+
+Question 2: deep sum
+
+As a test of the concepts introduced in deep_reverse, write the recursive function deep_sum that takes a list as argument and returns as its value the sum of all the number elements in the list and its sublists.
+
+Example:
+>>>deep_sum([1, 2, [3, 4, [[5]], [[6], [7, 8], 9], 10]])
+55
+
+Ans:
+
+def deep_sum(lst):
+    if type(lst) != list:
+        return lst
+    if lst == []:
+        return 0
+    return deep_sum(lst[0]) + deep_sum(lst[1:])
+    
+
+Question 3: number
+
+Define the class Number which makes a 'number object'. The object has five methods plus,times,divide, minus and value. You can assume that the integer value that the number object contains is always divisible to return an integer value.
+
+Example:
+>>>two=Number(2)
+>>>twelve=Number(12)
+>>>thirteen=Number(13)
+>>>thirteen.value()
+13
+>>>five=Number(5)
+>>>eight=thirteen.minus(five)
+>>>eight.value()
+8
+>>>twenty_four=two.times(twelve)
+>>>twenty_four.value()
+24
+
+Ans:
+
+class Number(object):
+    # complete the class definition #
+    def __init__(self, num):
+        self.num = num
+    
+    def value(self):
+        return self.num
+        
+    def minus(self, other):
+        a = self.num - other.num
+        return Number(a)
+    
+    
+    def times(self, other):
+        a = self.num * other.num
+        return Number(a)
+    
+    def plus(self, other):
+        a = self.num + other.num
+        return Number(a)
+    
+    def divide(self, other):
+        a = self.num / other.num
+        return Number(a)
+    
+### Uncomment the lines below ###
+three=Number(3)
+ten=Number(10)
+seven=ten.minus(three)
+twentyone=seven.times(three)
+five=Number(5)
+two=ten.divide(five)
+### Uncomment the lines above ###
+
