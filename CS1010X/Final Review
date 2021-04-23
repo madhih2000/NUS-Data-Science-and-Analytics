@@ -318,7 +318,7 @@ bigno=good_day_number.times(elite_number)
 
 
 Question 6: power set
-View Past Answers
+
 Write the function power_set that takes in a list, and returns the power set of that list. The power set is a list that includes all possible subsets of the given list including the null set. Note that the order of the subsets is not important in this question.
 
 Example:
