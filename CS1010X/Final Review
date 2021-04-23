@@ -317,3 +317,19 @@ bigno=good_day_number.times(elite_number)
 ### Uncomment the lines above ###
 
 
+Question 6: power set
+View Past Answers
+Write the function power_set that takes in a list, and returns the power set of that list. The power set is a list that includes all possible subsets of the given list including the null set. Note that the order of the subsets is not important in this question.
+
+Example:
+>>>power_set([1,2,3])
+[[1,2,3],[1,2],[1,3],[2,3],[1],[2],[3],[]]
+
+Ans:
+
+def power_set(lst):
+    final = []
+    x = len(lst)
+    for i in range(1 << x):
+        final.append([lst[j] for j in range(x) if (i & (1 << j))])
+    return final
