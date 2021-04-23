@@ -178,3 +178,142 @@ something_else=another_thing.divide(blackjack)
 ### Uncomment the lines above ###
 
 
+Question 5: last number
+View Past Answers
+Finally, modify your Number class to implement a method spell. Notice the format of the result, including the commas. Also note that spell will work for numbers below 10 million.
+
+>>> elite_number=Number(1337)
+>>> elite_number.spell()
+"one thousand, three hundred and thirty seven"
+>>> good_day_number = Number(210792)
+>>> good_day_number.spell()
+>>> "two hundred and ten thousand, seven hundred and ninety two"
+>>> bigno = good_day_number.times(elite_number)
+>>> bigno.spell()
+"really large number"
+
+Ans:
+
+ones = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')
+
+twos = ('ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen')
+
+tens = ('twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred')
+
+suffixes = ('', 'thousand,', 'million,', 'billion,')
+
+def process(number, index):
+    
+    if number=='0':
+        return 'zero'
+    
+    length = len(number)
+    
+    if(length > 3):
+        return False
+    
+    number = number.zfill(3)
+    words = ''
+ 
+    hdigit = int(number[0])
+    tdigit = int(number[1])
+    odigit = int(number[2])
+    
+    words += '' if number[0] == '0' else ones[hdigit]
+    words += ' hundred and ' if not words == '' else ''
+    
+    if(tdigit > 1):
+        words += tens[tdigit - 2]
+        words += ' '
+        words += ones[odigit]
+    
+    elif(tdigit == 1):
+        words += twos[(int(tdigit + odigit) % 10) - 1]
+        
+    elif(tdigit == 0):
+        words += ones[odigit]
+
+    if(words.endswith('zero')):
+        words = words[:-len('zero')]
+    else:
+        words += ' '
+     
+    if(not len(words) == 0):    
+        words += suffixes[index]
+        
+    return words;
+    
+def getWords(number):
+    length = len(str(number))
+    
+    count = length // 3 if length % 3 == 0 else length // 3 + 1
+    copy = count
+    words = []
+ 
+    for i in range(length - 1, -1, -3):
+        words.append(process(str(number)[0 if i - 2 < 0 else i - 2 : i + 1], copy - count))
+        count -= 1;
+
+    final_words = ''
+    for s in reversed(words):
+        temp = s + ' '
+        final_words += temp
+    
+    return final_words.rstrip()
+# End Main Logic
+
+
+class Number(object):
+    # complete the class definition #
+    def __init__(self, num):
+        self.num = num
+    
+    def value(self):
+        return self.num
+        
+    def minus(self, other):
+        if self.value() == "Undefined" or other.value() == "Undefined":
+            a = "Undefined"
+        else:
+            a = self.num - other.num
+        return Number(a)
+    
+    def spell(self):
+        if self.num > 10000000:
+            return "really large number"
+        else:
+            return getWords(self.num)
+    
+    
+    def times(self, other):
+        if self.value() == "Undefined" or other.value() == "Undefined":
+            a = "Undefined"
+        else:
+            a = self.num * other.num
+        return Number(a)
+    
+    def plus(self, other):
+        if self.value() == "Undefined" or other.value() == "Undefined":
+            a = "Undefined"
+        else:
+            a = self.num + other.num
+        return Number(a)
+    
+    def divide(self, other):
+        if other.num == 0:
+            a = "Undefined"
+        elif self.value() == "Undefined" or other.value() == "Undefined":
+            a = "Undefined"
+        else:
+            a = self.num / other.num
+        return Number(a) 
+    
+    
+### Uncomment the lines below ###
+    
+elite_number=Number(1337)
+good_day_number=Number(210792)
+bigno=good_day_number.times(elite_number)
+### Uncomment the lines above ###
+
+
