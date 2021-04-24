@@ -489,5 +489,23 @@ def make_stack():
     return mf
         
             
+Question 10: prefix_infix
+
+Using the stack you created, write the function prefix_infix that takes in a prefix expression (represented as a list) and returns the expression in fully parenthesized infix notation. Consider expressions involving only binary operators(+,-,*,/) You may find information regarding prefix here:
+http://en.wikipedia.org/wiki/Polish_notation
+
+Example:
+>>>prefix_infix(['+',['*',5,4],['-',2,1]])
+"((5 * 4) + (2 - 1))"
+
+Ans:
+
+def prefix_infix(expression):
+    if isinstance(expression, list):
+        op, left, right = expression
+        return '('+ prefix_infix(left) + " " + op + " " + prefix_infix(right) + ')'
+    else:
+        return str(expression)
+        
 
                 
