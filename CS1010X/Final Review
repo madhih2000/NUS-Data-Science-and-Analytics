@@ -535,4 +535,26 @@ def bubble_sort(arr):
                 arr[j], arr[j+1] = arr[j+1], arr[j]
                 
     return arr
-                
+      
+      
+Question 12: split
+
+Write a function split that takes in a number n and a list of numbers lst and splits lst into two sublists: a list lst1 that contains numbers smaller than or equal to n, and a list lst2 containing numbers greater than n.lst1 and lst2 must be returned as elements of a two-element list. The elements of lst1 and lst2 must appear in the same order in which they originally appeared in lst.
+
+Examples:
+>>>split(5,[1,10,4,9,7,2,5,8,3,4,9,6,2])
+[[1,4,2,5,3,4,2],[10,9,7,8,9,6]]
+
+Ans:
+
+def split(n, lst):
+    smaller = []
+    greater = []
+    for i in lst:
+        if i > n:
+            greater.append(i)
+        else:
+            smaller.append(i)
+    return [smaller, greater]
+
+
