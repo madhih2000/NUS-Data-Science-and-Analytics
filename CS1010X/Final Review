@@ -453,4 +453,41 @@ def part_v():
     return lst3
 
 
+Question 9: stack
+
+In this question, you will learn to build a prefix to infix converter. To achieve this, we first need to build a stack. This data structure will assist in building the converter. Implement a stack, which will accept the functions below in the example.
+
+>>>stk=make_stack()
+>>>stk('push',1)
+>>>stk('push',2)
+>>>stk('push',3)
+>>>stk('peek')
+3
+>>>stk('pop')
+3
+>>>stk('peek')
+2
+>>>stk('size')
+2
+
+Ans:
+
+def make_stack():
+    stack = []
+    def mf(msg, inp = 0):
+        if msg == "push":
+            stack.append(inp)
+        elif msg == "peek":
+            return stack[-1]
+            
+        elif msg == "pop":
+            item = stack.pop()
+            return item
+        
+        elif msg == "size":
+            return len(stack)
+    return mf
+        
+            
+
                 
