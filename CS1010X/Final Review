@@ -507,5 +507,32 @@ def prefix_infix(expression):
     else:
         return str(expression)
         
+Question 11: bubble sort
 
+Implement the function bubble_sort which takes in a list and sorts the list using a bubble sort. You may find the actual sorting algorithm at this website:
+http://en.wikipedia.org/wiki/Bubble_sort
+
+Example:
+>>>bubble_sort([5,3,2,6,7,8,1,4])
+[1,2,3,4,5,6,7,8]
+
+Ans:
+
+def bubble_sort(arr):
+    n = len(arr)
+  
+    # Traverse through all array elements
+    for i in range(n-1):
+    # range(n) also work but outer loop will repeat one time more than needed.
+  
+        # Last i elements are already in place
+        for j in range(0, n-i-1):
+  
+            # traverse the array from 0 to n-i-1
+            # Swap if the element found is greater
+            # than the next element
+            if arr[j] > arr[j+1] :
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                
+    return arr
                 
