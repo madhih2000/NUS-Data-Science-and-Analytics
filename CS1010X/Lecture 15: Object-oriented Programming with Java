@@ -1,0 +1,113 @@
+Question 1: OOP Concept
+
+A class can have many methods with the same name as long as the number of parameters or the types of parameters are different. This OOP concept is known as
+
+Ans:
+
+Method Overloading
+
+Question 2: Object
+
+Which of the following statements is false about objects?
+
+Ans:
+
+Each object reference can only point to one object throughout the execution of the program
+
+Question 3: Class Constructor
+
+What happens at compile-time if the programmer forgets to include a constructor in the class definition?
+
+Ans:
+
+A default constructor with no arguments and no body is created.
+
+
+Question 4: Class Constructor II
+
+What would be the output of the following program? 
+
+class Nest{
+    Nest() {
+       System.out.println("Nest");
+    }
+
+    Nest(long num) {
+       this();
+       System.out.println(num);
+    }
+  
+    Nest(int i) {
+       this(i);
+       System.out.println(i*2);
+    }
+    
+    public static void main(String[] args) {
+       int i = 4;
+       new Nest(i);
+    }
+}
+
+
+Ans:
+
+Compilation Error
+
+Question 5: Class Constructor III
+
+Assume we wanted to make a constructor method in the class, Nut:
+
+class Nut {
+   String typeOfNut;
+   public Nut(String typeOfNut){
+        _______________
+   }
+}
+How would you set the class variable to the argument passed into Nut? Fill in the blank with:
+
+Ans:
+
+this.typeOfNut = typeOfNut;
+
+
+Question 6: Information Hiding
+
+The practice of hiding the details from the user of what goes on inside of an Object is known as ___________.
+
+Ans:
+
+encapsulation
+
+Question 7: Returning an Object
+
+What is meant by "returning an object" from a method?
+
+Ans:
+
+Question 7: Returning an Object
+
+What is meant by "returning an object" from a method?
+
+Ans:
+
+It means that you are returning the object's address to the caller.
+
+
+Question 8: Returning an Object II
+
+If an object calls a method, and a new object is created within that method and returned to the caller, the object returned _________.
+
+Ans:
+
+has a different address and possible a different value from the object that called the method
+
+Question 9: Multiple Inheritance
+
+Multiple Inheritance is a feature of some object oriented programming languages, where a class can inherit from more than one parent class. As you learned that Python supports multiple inheritance. What about Java?
+
+
+Ans:
+
+Java does not support multiple inheritance.
+
+
