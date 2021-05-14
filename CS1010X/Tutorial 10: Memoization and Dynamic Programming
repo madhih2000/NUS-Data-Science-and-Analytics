@@ -1,0 +1,261 @@
+Question 1: Q1 Part(a)
+
+Consider the following function:
+
+The Collatz conjecture states that for any integer n, the sequence n, f(n), f(f(n)), ...will eventually reach 1.
+We define the Collatz distance for an integer n as the number of steps needed to reach 1.
+
+Write a function collatz_distance(n)
+
+Ans:
+
+
+def collatz_distance(n):
+    count = 0
+    while n != 1:
+        if n%2 == 0:
+            n = n//2
+        else:
+            n = 3*n+1
+        count += 1
+    return count 
+    
+    
+Question 2: Q1 Part(b)
+
+Consider the following function:
+
+The Collatz conjecture states that for any integer n, the sequence n, f(n), f(f(n)), ...will eventually reach 1.
+We define the Collatz distance for an integer n as the number of steps needed to reach 1.
+
+Write a function max_collatz_distance(n), which computes the maximum Collatz distance of 1, 2, 3, ..., n.
+The function collatz_distance(n) is provided.
+
+
+Ans:
+
+
+def max_collatz_distance(n):
+    step = []
+    for i in range(1, n+1):
+        step.append(collatz_distance(i))
+    return max(step)
+
+
+Question 3: Q1 Part(c)
+
+Consider the following function:
+
+The Collatz conjecture states that for any integer n, the sequence n, f(n), f(f(n)), ...will eventually reach 1.
+We define the Collatz distance for an integer n as the number of steps needed to reach 1.
+
+Give a memoized version of max_collatz_distance_memo(n), using memoize as provided in the lecture.
+
+
+Ans:
+
+memoize_table = {}
+def memoize(f, name):
+    if name not in memoize_table:
+        memoize_table[name] = {}
+    table = memoize_table[name]
+    def helper(*args):
+        if args in table:
+            return table[args]
+        else:
+            result = f(*args)
+            table[args] = result
+            return result
+    return helper
+def collatz_distance_memo(n):
+    def helper(n):
+        count = 0
+        while n != 1:
+            if n%2 == 0:
+                n = n//2
+            else:
+                n = 3*n+1
+            count += 1
+        return count 
+    return memoize(helper, "memoize_table")(n)    
+    
+def max_collatz_distance_memo(n):
+    step = []
+    for i in range(1, n+1):
+        step.append(collatz_distance_memo(i))
+    return max(step)
+
+
+Question 4: Q1 Part(d)
+
+Consider the following function:
+
+The Collatz conjecture states that for any integer n, the sequence n, f(n), f(f(n)), ...will eventually reach 1.
+We define the Collatz distance for an integer n as the number of steps needed to reach 1.
+
+Memoize it without using the function provided in the lecture. You should be able to do better.
+
+
+Ans:
+
+
+def max_collatz_distance_memo(n):
+    table = {}
+    if n in table:
+        return max(table.values())
+    else:
+        for i in range(1, n+1):
+            table[i] = collatz_distance(i)
+    return max(table.values())
+
+
+Question 5: Q2 Part(a)
+
+The following function accesses a URL on the internet and retrieves its contents:
+
+from urllib.request import urlopen
+from urllib.parse import urlsplit
+from urllib.error import *
+
+def httpget(url):
+    parsed = urlsplit(url)
+    if not parsed.scheme:  # protocol insertion
+        url = 'http://' + url
+    elif parsed.scheme != 'http':
+        raise ValueError("Unknown protocol")
+    return urlopen(url).read()
+Your ability to access a URL on the internet is not guaranteed - it is only on a “best effort” basis. An example of an URL is http://www.nus.edu.sg/. Describe qualitatively (no need for exact exceptions/error codes) some of the things that could go wrong.
+
+
+Ans:
+
+
+"""
+Fill in your answer here.
+User Error:
+If the url does not contain anything at the front of "www.", 'http://' is being added to the url to fulfill it.
+If the url has got something in front and it is not equal to 'http', then Unknown Protocol message is raised.
+If the domain name is wrong, the url might not be able to pass through.
+Internet Error:
+Failure in servers hosting the site.
+"""
+
+Question 6: Q2 Part(b)
+
+The following function accesses a URL on the internet and retrieves its contents:
+
+from urllib.request import urlopen
+from urllib.parse import urlsplit
+from urllib.error import *
+
+def httpget(url):
+    parsed = urlsplit(url)
+    if not parsed.scheme:  # protocol insertion
+        url = 'http://' + url
+    elif parsed.scheme != 'http':
+        raise ValueError("Unknown protocol")
+    return urlopen(url).read()
+Why is it a good idea to return an error instead of simply returning an empty string when the URL is not accessible? A common error message that you might have encountered is the ”Not Found” error message.
+
+
+Ans:
+
+
+"""
+Fill in your answer here.
+So that the user can rectify the url and make sure everything is correct before trying again. If there is no message, the user might think the site is still loading.
+"""
+
+
+Question 7: Q2 Part(c)
+
+The following function accesses a URL on the internet and retrieves its contents:
+
+from urllib.request import urlopen
+from urllib.parse import urlsplit
+from urllib.error import *
+
+def httpget(url):
+    parsed = urlsplit(url)
+    if not parsed.scheme:  # protocol insertion
+        url = 'http://' + url
+    elif parsed.scheme != 'http':
+        raise ValueError("Unknown protocol")
+    return urlopen(url).read()
+Suppose we are interested in 3 types of errors: user errors, internet errors and all other errors. A user error might be a mistyped URL while a internet error may be a connection problem.
+
+For user errors, we try to catch URLError and rethrow it as ValueError. For internet error, we try to catch HTTPError and rethrow it as custom error type InternetFail. For other errors, just rethrow.
+
+Modify httpget to accomodate the above error handling.
+
+Note: HTTPError is a subclass of URLError, hence the order is important. We want to handle the more specific error first.
+
+Ans:
+
+from urllib.request import urlopen
+from urllib.parse import urlsplit
+from urllib.error import *
+class InternetFail(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value) 
+## Do not remove the lines above.
+def httpget(url):
+    parsed = urlsplit(url)
+    if not parsed.scheme: #protocol insertion
+        url = 'http://'+url
+    elif parsed.scheme != 'http':
+        raise ValueError("Unknown protocol")
+    try:
+        urlopen(url).read()
+    except HTTPError as e:
+        raise InternetFail(e)
+    except URLError as e:
+        raise ValueError(e)
+    except Exception as e:
+        raise Exception(e)
+
+
+Question 8: Q2 Part(d)
+
+Using the code in part(c), write a function download_URLs(URL_filenames) to download a set of files, given that URL_filenames_pairs consists of [ [URL, filename], ...].
+
+Naturally, many errors can occur during downloading - if we get InternetFail or ValueError, we want to ignore those and continue downloading the rest of the list. Otherwise, we rethrow the error.
+
+Hint: to save data to a file use the following:
+with open(filename, 'wb') as myFile: 
+    myFile.write(contents)
+    
+    
+Ans:
+
+from urllib.request import *
+from urllib.parse import *
+from urllib.error import *
+URLS = [["","impossible.txt"],["http://google.com/cs1010fc","fail.txt"]]
+def download_URLs(URL_filenames):
+    def httpget(url):
+        parsed = urlsplit(url)
+        if not parsed.scheme: #protocol insertion
+            url = 'http://'+ url
+        elif parsed.scheme != 'http':
+            raise ValueError("Unknown protocol")
+        else:
+            try:
+                return urlopen(url).read()
+            except HTTPError:
+                raise Exception('InternetFail')
+            except URLError:
+                raise Exception('ValueError')
+    
+    for file in URL_filenames:
+        URL, filename = file
+        try:
+            if httpget(URL):
+                with open(filename, 'wb') as myFile:
+                    myFile.write(contents)
+        except HTTPError:
+            continue
+        except ValueError:
+           continue
